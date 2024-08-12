@@ -1,62 +1,62 @@
 [
     {
         "x": "January",
-        "ySimpanan": "21700000",
-        "yPinjaman": "240000000"
+        "yPesan": 0,
+        "yTransaksi": 0
     },
     {
         "x": "February",
-        "ySimpanan": "3450000",
-        "yPinjaman": "26000000"
+        "yPesan": 0,
+        "yTransaksi": 0
     },
     {
         "x": "March",
-        "ySimpanan": "3200000",
-        "yPinjaman": "8000000"
+        "yPesan": 0,
+        "yTransaksi": 0
     },
     {
         "x": "April",
-        "ySimpanan": "16000000",
-        "yPinjaman": 0
+        "yPesan": 0,
+        "yTransaksi": 0
     },
     {
         "x": "May",
-        "ySimpanan": 0,
-        "yPinjaman": 0
+        "yPesan": 0,
+        "yTransaksi": 0
     },
     {
         "x": "June",
-        "ySimpanan": 0,
-        "yPinjaman": "10000000"
+        "yPesan": 0,
+        "yTransaksi": 0
     },
     {
         "x": "July",
-        "ySimpanan": "550000",
-        "yPinjaman": "12000000"
+        "yPesan": 0,
+        "yTransaksi": 0
     },
     {
         "x": "August",
-        "ySimpanan": 0,
-        "yPinjaman": 0
+        "yPesan": 0,
+        "yTransaksi": 0
     },
     {
         "x": "September",
-        "ySimpanan": 0,
-        "yPinjaman": 0
+        "yPesan": 0,
+        "yTransaksi": 0
     },
     {
         "x": "October",
-        "ySimpanan": 0,
-        "yPinjaman": 0
+        "yPesan": 0,
+        "yTransaksi": 0
     },
     {
         "x": "November",
-        "ySimpanan": 0,
-        "yPinjaman": 0
+        "yPesan": 0,
+        "yTransaksi": 0
     },
     {
         "x": "December",
-        "ySimpanan": 0,
-        "yPinjaman": 0
+        "yPesan": 0,
+        "yTransaksi": 0
     }
 ]

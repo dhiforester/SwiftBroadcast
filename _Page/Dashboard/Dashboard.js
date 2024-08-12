@@ -3,8 +3,8 @@ $(document).ready(function () {
     $.getJSON("_Page/Dashboard/GrafikTransaksi.json", function (data) {
         // Mengolah data untuk ApexCharts
         const categories = data.map(item => item.x);
-        const simpananSeries = data.map(item => parseFloat(item.ySimpanan));
-        const pinjamanSeries = data.map(item => parseFloat(item.yPinjaman));
+        const PesanSeries = data.map(item => parseFloat(item.yPesan));
+        const TransaksiSeries = data.map(item => parseFloat(item.yTransaksi));
 
         // Konfigurasi grafik
         var options = {
@@ -14,12 +14,12 @@ $(document).ready(function () {
             },
             series: [
                 {
-                    name: 'Simpanan',
-                    data: simpananSeries
+                    name: 'Pesan',
+                    data: PesanSeries
                 },
                 {
-                    name: 'Pinjaman',
-                    data: pinjamanSeries
+                    name: 'Transaksi',
+                    data: TransaksiSeries
                 }
             ],
             xaxis: {
@@ -28,14 +28,14 @@ $(document).ready(function () {
             yaxis: {
                 labels: {
                     formatter: function (value) {
-                        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(value);
+                        return value;
                     }
                 }
             },
             tooltip: {
                 y: {
                     formatter: function (value) {
-                        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(value);
+                        return value;
                     }
                 }
             }

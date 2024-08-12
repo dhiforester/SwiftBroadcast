@@ -12,20 +12,16 @@
         $Waktu = strtotime($WaktuFormating);
         $Waktu = date('F', $Waktu);
 
-        // Jumlah Simpanan
-        $SumSimpanan = mysqli_fetch_array(mysqli_query($Conn, "SELECT SUM(jumlah) AS total FROM simpanan WHERE tanggal LIKE '%$WaktuPencarian%'"));
-        $DataSimpanan = $SumSimpanan['total'];
-        $JumlahSimpanan = $DataSimpanan ? $DataSimpanan : 0;
+        // Jumlah Pesan
+        $JumlahPesanTerkirim = mysqli_num_rows(mysqli_query($Conn, "SELECT id_pesan_terkirim FROM pesan_terkirim WHERE datetime_pesan LIKE '%$WaktuPencarian%'"));
 
-        // Jumlah Pinjaman
-        $SumPinjaman = mysqli_fetch_array(mysqli_query($Conn, "SELECT SUM(jumlah_pinjaman) AS total FROM pinjaman WHERE tanggal LIKE '%$WaktuPencarian%'"));
-        $DataPinjaman = $SumPinjaman['total'];
-        $JumlahPinjaman = $DataPinjaman ? $DataPinjaman : 0;
+        // Jumlah Transaksi
+        $JumlahTransaksiSelesai = mysqli_num_rows(mysqli_query($Conn, "SELECT id_transaksi FROM transaksi WHERE status_pengiriman='Selesai' AND datetime_transaksi LIKE '%$WaktuPencarian%'"));
 
         $data[] = array(
             'x' => $Waktu,
-            'ySimpanan' => $JumlahSimpanan,
-            'yPinjaman' => $JumlahPinjaman
+            'yPesan' => $JumlahPesanTerkirim,
+            'yTransaksi' => $JumlahTransaksiSelesai
         );
     }
 
