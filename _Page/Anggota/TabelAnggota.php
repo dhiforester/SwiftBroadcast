@@ -45,7 +45,7 @@
         if(empty($keyword)){
             $jml_data = mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM anggota"));
         }else{
-            $jml_data = mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM anggota WHERE tanggal_masuk like '%$keyword%' OR tanggal_keluar like '%$keyword%' OR nip like '%$keyword%' OR nama like '%$keyword%' OR email like '%$keyword%' OR kontak like '%$keyword%' OR lembaga like '%$keyword%' OR ranking like '%$keyword%' OR status like '%$keyword%'"));
+            $jml_data = mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM anggota WHERE id_supervisi like '%$keyword%' OR nama like '%$keyword%' OR email like '%$keyword%' OR kontak like '%$keyword%' OR status like '%$keyword%'"));
         }
     }else{
         if(empty($keyword)){
@@ -123,11 +123,12 @@
             <thead>
                 <tr>
                     <td align="center"><b>No</b></td>
-                    <td align="center"><b>Anggota</b></td>
-                    <td align="center"><b>Tanggal</b></td>
-                    <td align="center"><b>Email & Kontak</b></td>
-                    <td align="center"><b>Lembaga & Ranking</b></td>
-                    <td align="center"><b>Akses & Status</b></td>
+                    <td align="center"><b>Nama</b></td>
+                    <td align="center"><b>Supervisi</b></td>
+                    <td align="center"><b>Kontak</b></td>
+                    <td align="center"><b>Email</b></td>
+                    <td align="center"><b>Password</b></td>
+                    <td align="center"><b>Status</b></td>
                     <td align="center"><b>Opsi</b></td>
                 </tr>
             </thead>
@@ -135,7 +136,7 @@
                 <?php
                     if(empty($jml_data)){
                         echo '<tr>';
-                        echo '  <td colspan="7" class="text-center">';
+                        echo '  <td colspan="8" class="text-center">';
                         echo '      <code class="text-danger">';
                         echo '          Tidak Ada Data Anggota Yang Dapat Ditampilkan';
                         echo '      </code>';
@@ -148,7 +149,7 @@
                             if(empty($keyword)){
                                 $query = mysqli_query($Conn, "SELECT*FROM anggota ORDER BY $OrderBy $ShortBy LIMIT $posisi, $batas");
                             }else{
-                                $query = mysqli_query($Conn, "SELECT*FROM anggota WHERE tanggal_masuk like '%$keyword%' OR tanggal_keluar like '%$keyword%' OR nip like '%$keyword%' OR nama like '%$keyword%' OR email like '%$keyword%' OR kontak like '%$keyword%' OR lembaga like '%$keyword%' OR ranking like '%$keyword%' OR status like '%$keyword%' ORDER BY $OrderBy $ShortBy LIMIT $posisi, $batas");
+                                $query = mysqli_query($Conn, "SELECT*FROM anggota WHERE id_supervisi like '%$keyword%' OR nama like '%$keyword%' OR email like '%$keyword%' OR kontak like '%$keyword%' OR status like '%$keyword%' ORDER BY $OrderBy $ShortBy LIMIT $posisi, $batas");
                             }
                         }else{
                             if(empty($keyword)){
@@ -159,92 +160,43 @@
                         }
                         while ($data = mysqli_fetch_array($query)) {
                             $id_anggota= $data['id_anggota'];
-                            $tanggal_masuk= $data['tanggal_masuk'];
-                            $tanggal_keluar= $data['tanggal_keluar'];
-                            $nip= $data['nip'];
+                            $id_supervisi= $data['id_supervisi'];
                             $nama= $data['nama'];
                             $email= $data['email'];
                             $kontak= $data['kontak'];
-                            $lembaga= $data['lembaga'];
-                            $ranking= $data['ranking'];
+                            $password= $data['password'];
                             if(empty($data['foto'])){
                                 $foto="No-Image.PNG";
                             }else{
                                 $foto= $data['foto'];
                             }
-                            $akses_anggota= $data['akses_anggota'];
-                            if($akses_anggota==1){
-                                $password= $data['password'];
-                                $password="*****";
-                            }else{
-                                $password="-";
-                            }
                             $status= $data['status'];
                             if($status=="Keluar"){
-                                $strtotime2=strtotime($tanggal_keluar);
-                                $TanggalKeluar=date('d/m/Y', $strtotime2);
-                                $LabelStatus='<span class="text-danger">Keluar</span>';
+                                $LabelStatus='<span class="badge bg-danger">Keluar</span>';
                             }else{
-                                $TanggalKeluar="-";
-                                $LabelStatus='<span class="text-success">Aktif</span>';
+                                $LabelStatus='<span class="badge bg-success">Aktif</span>';
                             }
-                            //Format Tanggal
-                            $strtotime1=strtotime($tanggal_masuk);
-                            //Menampilkan Tanggal
-                            $TanggalMasuk=date('d/m/Y', $strtotime1);
+                            //Buka Supervisi
+                            $NamaSupervisi=GetDetailData($Conn,'supervisi','id_supervisi',$id_supervisi,'nama');
                 ?>
                             <tr>
                                 <td align="center"><?php echo $no; ?></td>
+                                <td align="left"><?php echo $nama; ?></td>
                                 <td align="left">
                                     <small class="credit">
-                                        <?php
-                                            echo '<a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#ModalDetailAnggota" data-id="'.$id_anggota.'" class="text text-decoration-underline">';
-                                            echo '  '.$nama.'';
-                                            echo '</a>';
-                                            echo "<br>";
-                                            echo '<code class="text text-grayish">NIP : '.$nip.'</code>';
-                                        ?>
+                                        <code class="text text-grayish"><?php echo $NamaSupervisi; ?></code>
                                     </small>
                                 </td>
+                                <td align="left"><?php echo $kontak; ?></td>
+                                <td align="left"><?php echo $email; ?></td>
                                 <td align="left">
                                     <small class="credit">
-                                        <?php
-                                            echo '<code class="text text-dark">Masuk : </code>';
-                                            echo '<code class="text text-grayish">'.$TanggalMasuk.'</code><br>';
-                                            echo '<code class="text text-dark">Keluar : </code>';
-                                            echo '<code class="text text-grayish">'.$TanggalKeluar.'</code><br>';
-                                        ?>
+                                        <code class="text text-grayish">
+                                            <?php echo $password; ?>
+                                        </code>
                                     </small>
                                 </td>
-                                <td align="left">
-                                    <small class="credit">
-                                        <?php
-                                            echo '<i class="bi bi-envelope"></i> '.$email.'';
-                                            echo "<br>";
-                                            echo '<code class="text text-grayish"><i class="bi bi-phone"></i> '.$kontak.'</code>';
-                                        ?>
-                                    </small>
-                                </td>
-                                <td align="left">
-                                    <small class="credit">
-                                        <?php
-                                            echo '<code class="text text-dark">Lembaga : </code>';
-                                            echo '<code class="text text-grayish">'.$lembaga.'</code><br>';
-                                            echo '<code class="text text-dark">Ranking : </code>';
-                                            echo '<code class="text text-grayish">'.$ranking.'</code><br>';
-                                        ?>
-                                    </small>
-                                </td>
-                                <td align="left">
-                                    <small class="credit">
-                                        <?php
-                                            echo '<code class="text text-dark">Password : </code>';
-                                            echo '<code class="text text-grayish">'.$password.'</code><br>';
-                                            echo '<code class="text text-dark">Status : </code>';
-                                            echo '<code class="text text-grayish">'.$LabelStatus.'</code><br>';
-                                        ?>
-                                    </small>
-                                </td>
+                                <td align="left"><?php echo $LabelStatus; ?></td>
                                 <td align="center">
                                     <a class="btn btn-sm btn-outline-dark btn-rounded" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="bi bi-three-dots"></i>
@@ -260,12 +212,7 @@
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ModalEditAnggota" data-id="<?php echo "$id_anggota"; ?>">
-                                                <i class="bi bi-pencil"></i> Ubah Anggota
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ModalUbahFotoAnggota" data-id="<?php echo "$id_anggota"; ?>">
-                                                <i class="bi bi-image"></i> Ubah Foto
+                                                <i class="bi bi-pencil"></i> Ubah Informasi
                                             </a>
                                         </li>
                                         <li>

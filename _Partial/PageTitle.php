@@ -79,11 +79,11 @@
             echo '</nav>';
         }
         if($_GET['Page']=="Anggota"){
-            echo '<h1><a href=""><i class="bi bi-people"></i> Anggota</a></h1>';
+            echo '<h1><a href=""><i class="bi bi-people"></i> Customer Service</a></h1>';
             echo '<nav>';
             echo '  <ol class="breadcrumb">';
             echo '      <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>';
-            echo '      <li class="breadcrumb-item active">Anggota</li>';
+            echo '      <li class="breadcrumb-item active">Customer Service</li>';
             echo '  </ol>';
             echo '</nav>';
         }

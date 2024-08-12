@@ -13,25 +13,25 @@
         if(empty($_POST['id_anggota'])){
             echo '<code class="text-danger">ID Anggota Tidak Boleh Kosong</code>';
         }else{
-            //Validasi nip tidak boleh kosong
-            if(empty($_POST['nip'])){
-                echo '<code class="text-danger">Nomor Induk Anggota Tidak Boleh Kosong</code>';
+            //Validasi nama tidak boleh kosong
+            if(empty($_POST['nama'])){
+                echo '<code class="text-danger">Nama tidak boleh kosong</code>';
             }else{
-                //Validasi nama tidak boleh kosong
-                if(empty($_POST['nama'])){
-                    echo '<code class="text-danger">Nama tidak boleh kosong</code>';
+                //Validasi id_supervisi tidak boleh kosong
+                if(empty($_POST['id_supervisi'])){
+                    echo '<code class="text-danger">Supervisi tidak boleh kosong</code>';
                 }else{
-                    //Validasi tanggal_masuk tidak boleh kosong
-                    if(empty($_POST['tanggal_masuk'])){
-                        echo '<code class="text-danger">Tanggal masuk anggota tidak boleh kosong</code>';
+                    //Validasi kontak tidak boleh kosong
+                    if(empty($_POST['kontak'])){
+                        echo '<code class="text-danger">Nomor kontak tidak boleh kosong</code>';
                     }else{
-                        //Validasi lembaga tidak boleh kosong
-                        if(empty($_POST['lembaga'])){
-                            echo '<code class="text-danger">Nama lembaga anggota tidak boleh kosong</code>';
+                        //Validasi email tidak boleh kosong
+                        if(empty($_POST['email'])){
+                            echo '<code class="text-danger">Email tidak boleh kosong</code>';
                         }else{
-                            //Validasi ranking tidak boleh kosong
-                            if(empty($_POST['ranking'])){
-                                echo '<code class="text-danger">Ranking/Group anggota tidak boleh kosong</code>';
+                            //Validasi password tidak boleh kosong
+                            if(empty($_POST['password'])){
+                                echo '<code class="text-danger">Password tidak boleh kosong</code>';
                             }else{
                                 //Validasi status tidak boleh kosong
                                 if(empty($_POST['status'])){
@@ -39,136 +39,96 @@
                                 }else{
                                     //Buat Variabel
                                     $id_anggota=$_POST['id_anggota'];
-                                    $nip=$_POST['nip'];
                                     $nama=$_POST['nama'];
-                                    $tanggal_masuk=$_POST['tanggal_masuk'];
-                                    $lembaga=$_POST['lembaga'];
-                                    $ranking=$_POST['ranking'];
+                                    $id_supervisi=$_POST['id_supervisi'];
                                     $status=$_POST['status'];
-                                    //Variabel Lain yang tidak wajib
-                                    if(!empty($_POST['kontak'])){
-                                        $kontak=$_POST['kontak'];
-                                    }else{
-                                        $kontak="";
-                                    }
-                                    if(!empty($_POST['email'])){
-                                        $email=$_POST['email'];
-                                    }else{
-                                        $email="";
-                                    }
-                                    if(!empty($_POST['password'])){
-                                        $password=$_POST['password'];
-                                    }else{
-                                        $password="";
-                                    }
-                                    if(!empty($_POST['tanggal_keluar'])){
-                                        $tanggal_keluar=$_POST['tanggal_keluar'];
-                                    }else{
-                                        $tanggal_keluar=date('Y-m-d');
-                                    }
-                                    if(!empty($_POST['akses_anggota'])){
-                                        $akses_anggota=1;
-                                    }else{
-                                        $akses_anggota=0;
-                                    }
-                                    if(!empty($_POST['alasan_keluar'])){
-                                        $alasan_keluar=$_POST['alasan_keluar'];
-                                    }else{
-                                        $alasan_keluar="";
-                                    }
+                                    $kontak=$_POST['kontak'];
+                                    $email=$_POST['email'];
+                                    $password=$_POST['password'];
                                     //Bersihkan Variabel
                                     $id_anggota=validateAndSanitizeInput($id_anggota);
-                                    $nip=validateAndSanitizeInput($nip);
                                     $nama=validateAndSanitizeInput($nama);
-                                    $tanggal_masuk=validateAndSanitizeInput($tanggal_masuk);
-                                    $lembaga=validateAndSanitizeInput($lembaga);
-                                    $ranking=validateAndSanitizeInput($ranking);
+                                    $id_supervisi=validateAndSanitizeInput($id_supervisi);
                                     $status=validateAndSanitizeInput($status);
                                     $kontak=validateAndSanitizeInput($kontak);
                                     $email=validateAndSanitizeInput($email);
                                     $password=validateAndSanitizeInput($password);
-                                    $tanggal_keluar=validateAndSanitizeInput($tanggal_keluar);
-                                    $akses_anggota=validateAndSanitizeInput($akses_anggota);
-                                    //Hitung Karakter NIP
-                                    $JumlahKarakterNip=strlen($_POST['nip']);
-                                    //Membuka Data Lama
+                                    //Buka Data Lama
                                     $EmailLama=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'email');
                                     $KontakLama=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'kontak');
-                                    $NipLama=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'nip');
-                                    if(!empty($_POST['email'])){
-                                        if($EmailLama==$email){
-                                            $ValidasiEmailDuplikat=0;
-                                        }else{
-                                            $ValidasiEmailDuplikat=mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM anggota WHERE email='$email'"));
-                                        }
+                                    $FotoLama=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'foto');
+                                    //Validasi Duplikat
+                                    if($KontakLama==$kontak){
+                                        $ValidasiKontakDuplikat=0;
                                     }else{
-                                        $ValidasiEmailDuplikat="";
+                                        $ValidasiKontakDuplikat=mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM anggota WHERE kontak='$kontak'"));
                                     }
-                                    if(!empty($_POST['kontak'])){
-                                        if($KontakLama==$kontak){
-                                            $ValidasiKontakDuplikat=0;
-                                        }else{
-                                            $ValidasiKontakDuplikat=mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM anggota WHERE kontak='$kontak'"));
-                                        }
-                                        $JumlahKarakterKontak=strlen($_POST['kontak']);
+                                    if($EmailLama==$email){
+                                        $ValidasiEmailDuplikat=0;
                                     }else{
-                                        $ValidasiKontakDuplikat="";
-                                        $JumlahKarakterKontak=0;
+                                        $ValidasiEmailDuplikat=mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM anggota WHERE email='$email'"));
                                     }
-                                    //Validasi NIP
-                                    if($NipLama==$nip){
-                                        $ValidasiNip=0;
+                                    if(!empty($ValidasiEmailDuplikat)){
+                                        echo '<code class="text-danger">Email yang anda masukan sudah ada sebelumnya</code>';
                                     }else{
-                                        $ValidasiNip=mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM anggota WHERE nip='$nip'"));
-                                    }
-                                    if(!empty($ValidasiNip)){
-                                        echo '<code class="text-danger">Nomor induk yang anda masukan sudah ada sebelumnya</code>';
-                                    }else{
-                                        if(!empty($ValidasiEmailDuplikat)){
-                                            echo '<code class="text-danger">Email anggota yang anda masukan sudah ada sebelumnya</code>';
+                                        if(!empty($ValidasiKontakDuplikat)){
+                                            echo '<code class="text-danger">Kontak yang anda masukan sudah ada sebelumnya</code>';
                                         }else{
-                                            if(!empty($ValidasiKontakDuplikat)){
-                                                echo '<code class="text-danger">Kontak anggota yang anda masukan sudah ada sebelumnya</code>';
+                                            //Validasi kontak tidak boleh lebih dari 20 karakter
+                                            if(!preg_match("/^[^a-zA-Z ]*$/", $_POST['kontak'])){
+                                                echo '<small class="text-danger">Kontak maksimal 20 karakter numerik</small>';
                                             }else{
-                                                //Validasi kontak tidak boleh lebih dari 20 karakter
-                                                if($JumlahKarakterKontak>20||!preg_match("/^[^a-zA-Z ]*$/", $_POST['kontak'])){
-                                                    echo '<small class="text-danger">Kontak maksimal 20 karakter numerik</small>';
-                                                }else{
-                                                    //Validasi NIP tidak boleh lebih dari 32 karakter
-                                                    if($JumlahKarakterNip>32){
-                                                        echo '<small class="text-danger">NIP maksimal 32 karakter</small>';
-                                                    }else{
-                                                        $UpdateAnggota = mysqli_query($Conn,"UPDATE anggota SET 
-                                                            tanggal_masuk='$tanggal_masuk',
-                                                            tanggal_keluar='$tanggal_keluar',
-                                                            nip='$nip',
-                                                            nama='$nama',
-                                                            email='$email',
-                                                            password='$password',
-                                                            kontak='$kontak',
-                                                            lembaga='$lembaga',
-                                                            ranking='$ranking',
-                                                            akses_anggota='$akses_anggota',
-                                                            status='$status',
-                                                            alasan_keluar='$alasan_keluar'
-                                                        WHERE id_anggota='$id_anggota'") or die(mysqli_error($Conn)); 
-                                                        if($UpdateAnggota){
-                                                            //Mengubah data simpanan
-                                                            $UpdateSimpanan = mysqli_query($Conn,"UPDATE simpanan SET 
-                                                                nip='$nip',
-                                                                nama='$nama',
-                                                                lembaga='$lembaga',
-                                                                ranking='$ranking'
-                                                            WHERE id_anggota='$id_anggota'") or die(mysqli_error($Conn)); 
-                                                            if($UpdateSimpanan){
-                                                                $KategoriLog="Angggota";
-                                                                $KeteranganLog="Edit Anggota Berhasil";
-                                                                include "../../_Config/InputLog.php";
-                                                                echo '<small class="text-success" id="NotifikasiEditAnggotaBerhasil">Success</small>';
+                                                //Validasi Gambar
+                                                if(!empty($_FILES['foto']['name'])){
+                                                    $nama_gambar=$_FILES['foto']['name'];
+                                                    $ukuran_gambar = $_FILES['foto']['size']; 
+                                                    $tipe_gambar = $_FILES['foto']['type']; 
+                                                    $tmp_gambar = $_FILES['foto']['tmp_name'];
+                                                    $timestamp = strval(time()-strtotime('1970-01-01 00:00:00'));
+                                                    $key=implode('', str_split(substr(strtolower(md5(microtime().rand(1000, 9999))), 0, 30), 6));
+                                                    $FileNameRand=$key;
+                                                    $Pecah = explode("." , $nama_gambar);
+                                                    $BiasanyaNama=$Pecah[0];
+                                                    $Ext=$Pecah[1];
+                                                    $namabaru = "$FileNameRand.$Ext";
+                                                    $path = "../../assets/img/Anggota/".$namabaru;
+                                                    if($tipe_gambar == "image/jpeg"||$tipe_gambar == "image/jpg"||$tipe_gambar == "image/gif"||$tipe_gambar == "image/png"){
+                                                        if($ukuran_gambar<2000000){
+                                                            if(move_uploaded_file($tmp_gambar, $path)){
+                                                                $ValidasiGambar="Valid";
+                                                            }else{
+                                                                $ValidasiGambar="Upload file gambar gagal";
                                                             }
                                                         }else{
-                                                            echo '<small class="text-danger">Terjadi kesalahan pada saat menyimpan data akses</small>';
+                                                            $ValidasiGambar="File gambar tidak boleh lebih dari 2 mb";
                                                         }
+                                                    }else{
+                                                        $ValidasiGambar="tipe file hanya boleh JPG, JPEG, PNG and GIF";
+                                                    }
+                                                }else{
+                                                    $ValidasiGambar="Valid";
+                                                    $namabaru="$FotoLama";
+                                                }
+                                                //Apabila validasi upload valid maka simpan di database
+                                                if($ValidasiGambar!=="Valid"){
+                                                    echo '<small class="text-danger">'.$ValidasiGambar.'</small>';
+                                                }else{
+                                                    $UpdateAnggota = mysqli_query($Conn,"UPDATE anggota SET 
+                                                        id_supervisi='$id_supervisi',
+                                                        nama='$nama',
+                                                        email='$email',
+                                                        password='$password',
+                                                        kontak='$kontak',
+                                                        foto='$namabaru',
+                                                        status='$status'
+                                                    WHERE id_anggota='$id_anggota'") or die(mysqli_error($Conn)); 
+                                                    if($UpdateAnggota){
+                                                        $KategoriLog="Customer Service";
+                                                        $KeteranganLog="Edit Customer Service Berhasil";
+                                                        include "../../_Config/InputLog.php";
+                                                        echo '<small class="text-success" id="NotifikasiEditAnggotaBerhasil">Success</small>';
+                                                    }else{
+                                                        echo '<small class="text-danger">Terjadi kesalahan pada saat menyimpan data</small>';
                                                     }
                                                 }
                                             }

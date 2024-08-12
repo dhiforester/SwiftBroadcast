@@ -23,37 +23,18 @@
             $id_anggota=$_POST['id_anggota'];
             $id_anggota=validateAndSanitizeInput($id_anggota);
             //Buka Informasi
-            $tanggal_masuk=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'tanggal_masuk');
-            $tanggal_keluar=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'tanggal_keluar');
+            $id_supervisi=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'id_supervisi');
             $email=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'email');
-            $nip=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'nip');
             $nama=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'nama');
             $password=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'password');
             $kontak=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'kontak');
-            $lembaga=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'lembaga');
-            $ranking=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'ranking');
             $foto=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'foto');
-            $akses_anggota=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'akses_anggota');
             $status=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'status');
-            $alasan_keluar=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'alasan_keluar');
 ?>
     <input type="hidden" name="id_anggota" value="<?php echo "$id_anggota"; ?>">
     <div class="row mb-3">
         <div class="col col-md-4">
-            <label for="nip_edit">Nomor Induk Anggota</label>
-        </div>
-        <div class="col-md-8">
-            <input type="text" name="nip" id="nip_edit" class="form-control" value="<?php echo "$nip"; ?>">
-            <small class="credit">
-                <code class="text text-grayish">
-                    Masukan nomor induk yang unik untuk mewakili data anggota.
-                </code>
-            </small>
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col col-md-4">
-            <label for="nama_edit">Nama Lengkap</label>
+            <label for="nama_edit">Nama</label>
         </div>
         <div class="col-md-8">
             <input type="text" name="nama" id="nama_edit" class="form-control" value="<?php echo "$nama"; ?>">
@@ -61,40 +42,29 @@
     </div>
     <div class="row mb-3">
         <div class="col col-md-4">
-            <label for="tanggal_masuk_edit">Tanggal Masuk</label>
+            <label for="id_supervisi_edit">Supervisi</label>
         </div>
         <div class="col-md-8">
-            <input type="date" name="tanggal_masuk" id="tanggal_masuk_edit" class="form-control" value="<?php echo "$tanggal_masuk"; ?>">
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col col-md-4">
-            <label for="lembaga_edit">Lembaga</label>
-        </div>
-        <div class="col-md-8">
-            <input type="text" name="lembaga" id="lembaga_edit" class="form-control" list="list_lembaga_edit" value="<?php echo "$lembaga"; ?>">
-            <datalist id="list_lembaga_edit">
+            <select name="id_supervisi" id="id_supervisi_edit"class="form-control">
+                <option value="">Pilih</option>
                 <?php
-                    $QryLembaga = mysqli_query($Conn, "SELECT DISTINCT lembaga FROM anggota ORDER BY lembaga ASC");
-                    while ($DataLembaga = mysqli_fetch_array($QryLembaga)) {
-                        $list_lembaga= $DataLembaga['lembaga'];
-                        echo '<option value="'.$list_lembaga.'">';
+                    $QrySpv = mysqli_query($Conn, "SELECT id_supervisi, nama FROM supervisi ORDER BY nama ASC");
+                    while ($DataSpv = mysqli_fetch_array($QrySpv)) {
+                        $id_supervisi_list= $DataSpv['id_supervisi'];
+                        $nama= $DataSpv['nama'];
+                        if($id_supervisi_list==$id_supervisi){
+                            echo '<option selected value="'.$id_supervisi_list.'">'.$nama.'</option>';
+                        }else{
+                            echo '<option value="'.$id_supervisi_list.'">'.$nama.'</option>';
+                        }
                     }
                 ?>
-            </datalist>
+            </select>
         </div>
     </div>
     <div class="row mb-3">
         <div class="col col-md-4">
-            <label for="ranking_edit">Ranking/Group</label>
-        </div>
-        <div class="col-md-8">
-            <input type="text" name="ranking" id="ranking_edit" class="form-control" placeholder="[0-9]" value="<?php echo "$ranking"; ?>">
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col col-md-4">
-            <label for="kontak_edit">No.Kontak</label>
+            <label for="kontak_edit">Kontak</label>
         </div>
         <div class="col-md-8">
             <input type="text" name="kontak" id="kontak_edit" class="form-control" placeholder="62" value="<?php echo "$kontak"; ?>">
@@ -106,14 +76,6 @@
         </div>
         <div class="col-md-8">
             <input type="email" name="email" id="email_edit" class="form-control" placeholder="email@domain.com" value="<?php echo "$email"; ?>">
-            <div class="form-check">
-                <input class="form-check-input" <?php if($akses_anggota==1){echo "checked";} ?> type="checkbox" value="Ya" id="akses_anggota_edit" name="akses_anggota">
-                <label class="form-check-label" for="akses_anggota_edit">
-                    <small>
-                        <code class="text-dark">Sertakan akses untuk anggota tersebut</code>
-                    </small>
-                </label>
-            </div>
         </div>
     </div>
     <div class="row mb-3" id="form_password_edit">
@@ -134,7 +96,7 @@
     </div>
     <div class="row mb-3">
         <div class="col col-md-4">
-            <label for="status_edit">Status Keanggotaan</label>
+            <label for="status_edit">Status</label>
         </div>
         <div class="col-md-8">
             <select name="status" id="status_edit" class="form-control">
@@ -144,48 +106,27 @@
             </select>
         </div>
     </div>
-    <div class="row mb-3" id="form_tanggal_keluar_edit">
+    <div class="row mb-3">
         <div class="col col-md-4">
-            <label for="tanggal_keluar_edit">Tanggal Keluar</label>
+            <label for="foto_edit">Foto</label>
         </div>
         <div class="col-md-8">
-            <input type="date" name="tanggal_keluar" id="tanggal_keluar_edit" class="form-control" value="<?php echo "$tanggal_keluar"; ?>">
+            <input type="file" name="foto" id="foto_edit" class="form-control">
             <small class="credit">
                 <code class="text text-grayish">
-                    Diisi hanya apabila anggota sudah keluar
+                    File foto maksimal 2 Mb (JPG, JPEG, PNG dan GIF)
                 </code>
             </small>
-        </div>
-    </div>
-    <div class="row mb-3" id="form_alasan_keluar_edit">
-        <div class="col col-md-4">
-            <label for="alasan_keluar_edit">Alasan Keluar</label>
-        </div>
-        <div class="col-md-8">
-            <textarea name="alasan_keluar" id="alasan_keluar_edit" class="form-control"><?php echo "$alasan_keluar"; ?></textarea>
         </div>
     </div>
     <div class="row mb-3">
         <div class="col col-md-4"></div>
         <div class="col-md-8">
-            <code class="text-primary">Pastikan data anggota yang anda input sudah benar</code>
+            <code class="text-primary">Pastikan data yang anda input sudah benar</code>
         </div>
     </div>
     <script>
-        //Kondisi Pertama Kali
-        if($('#akses_anggota_edit').is(':checked')){
-            $('#form_password_edit').show();
-        }else{
-            $('#form_password_edit').hide();
-        }
         var status_edit = $('#status_edit').val();
-        if(status_edit=="Keluar"){
-            $('#form_tanggal_keluar_edit').show();
-            $('#form_alasan_keluar_edit').show();
-        }else{
-            $('#form_tanggal_keluar_edit').hide();
-            $('#form_alasan_keluar_edit').hide();
-        }
         //Validasi kontak_edit Hanya Boleh Angka
         $('#kontak_edit').keypress(function(event) {
             // Hanya mengizinkan angka (0-9) dan tombol kontrol seperti backspace
@@ -201,25 +142,6 @@
                 $('#password_edit').attr('type','text');
             }else{
                 $('#password_edit').attr('type','password');
-            }
-        });
-        //Menampilkan Form Password Saat form_password_edit bernilai Ya
-        $('#akses_anggota_edit').click(function(){
-            if($(this).is(':checked')){
-                $('#form_password_edit').show();
-            }else{
-                $('#form_password_edit').hide();
-            }
-        });
-        //Kondisi Ketika Dipilih Status Anggota
-        $('#status_edit').change(function(){
-            var status_edit = $('#status_edit').val();
-            if(status_edit=="Keluar"){
-                $('#form_tanggal_keluar_edit').show();
-                $('#form_alasan_keluar_edit').show();
-            }else{
-                $('#form_tanggal_keluar_edit').hide();
-                $('#form_alasan_keluar_edit').hide();
             }
         });
     </script>

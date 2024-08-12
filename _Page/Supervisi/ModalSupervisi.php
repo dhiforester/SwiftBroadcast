@@ -132,7 +132,7 @@
                     <div class="row mb-3">
                         <div class="col col-md-4"></div>
                         <div class="col-md-8">
-                            <code class="text-primary">Pastikan data anggota yang anda input sudah benar</code>
+                            <code class="text-primary">Pastikan data supervisi yang anda input sudah benar</code>
                         </div>
                     </div>
                     <div class="row mb-3">

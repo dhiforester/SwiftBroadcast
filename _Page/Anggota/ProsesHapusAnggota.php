@@ -11,22 +11,14 @@
     }else{
         //Validasi id_anggota tidak boleh kosong
         if(empty($_POST['id_anggota'])){
-            echo '<code class="text-danger">ID Anggota Tidak Boleh Kosong</code>';
+            echo '<code class="text-danger">ID Tidak Boleh Kosong</code>';
         }else{
-            //Validasi hapus_relasi_anggota tidak boleh kosong
-            if(empty($_POST['hapus_relasi_anggota'])){
-                $hapus_relasi_anggota="Tidak";
-            }else{
-                $hapus_relasi_anggota=$_POST['hapus_relasi_anggota'];
-            }
             $id_anggota=$_POST['id_anggota'];
-            //Bersihkan Variabel
-            $hapus_relasi_anggota=validateAndSanitizeInput($hapus_relasi_anggota);
             $id_anggota=validateAndSanitizeInput($id_anggota);
             //Validasi ID Anggota
             $id_anggota=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'id_anggota');
             if(empty($id_anggota)){
-                echo '<code class="text-danger">ID Anggota Tidak Tidak Valid Atau Tidak Ditemukan Pada Database</code>';
+                echo '<code class="text-danger">ID Tidak Tidak Valid Atau Tidak Ditemukan Pada Database</code>';
             }else{
                 $FotoLama=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'foto');
                 $LokasiFotoLama = "../../assets/img/Anggota/".$FotoLama;
@@ -47,40 +39,16 @@
                     }else{
                         $ValidasiGambar="Valid";
                     }
-                    if($hapus_relasi_anggota=="Ya"){
-                        $HapusSimpanan = mysqli_query($Conn, "DELETE FROM simpanan WHERE id_anggota='$id_anggota'") or die(mysqli_error($Conn));
-                        if($HapusSimpanan) {
-                            $HapusPinjaman = mysqli_query($Conn, "DELETE FROM pinjaman WHERE id_anggota='$id_anggota'") or die(mysqli_error($Conn));
-                            if($HapusPinjaman) {
-                                $HapusAngsuran = mysqli_query($Conn, "DELETE FROM pinjaman_angsuran WHERE id_anggota='$id_anggota'") or die(mysqli_error($Conn));
-                                if($HapusAngsuran) {
-                                    $ValidasiHapusRelasi="Valid";
-                                }else{
-                                    $ValidasiHapusRelasi="Terjadi Kesalahan Pada Saat Menghapus Data Anggota Pada Tabel Pinjaman";
-                                }
-                            }else{
-                                $ValidasiHapusRelasi="Terjadi Kesalahan Pada Saat Menghapus Data Anggota Pada Tabel Pinjaman";
-                            }
-                        }else{
-                            $ValidasiHapusRelasi="Terjadi Kesalahan Pada Saat Menghapus Data Anggota Pada Tabel Simpanan";
-                        }
-                    }else{
-                        $ValidasiHapusRelasi="Valid";
-                    }
                     if($ValidasiGambar=="Valid"){
-                        if($ValidasiHapusRelasi=="Valid"){
-                            $KategoriLog="Angggota";
-                            $KeteranganLog="Hapus Anggota";
-                            include "../../_Config/InputLog.php";
-                            echo '<small class="text-success" id="NotifikasiHapusAnggotaBerhasil">Success</small>';
-                        }else{
-                            echo '<code class="text-danger">'.$ValidasiHapusRelasi.'</code>';
-                        }
+                        $KategoriLog="Customer Service";
+                        $KeteranganLog="Hapus Customer Service";
+                        include "../../_Config/InputLog.php";
+                        echo '<small class="text-success" id="NotifikasiHapusAnggotaBerhasil">Success</small>';
                     }else{
                         echo '<code class="text-danger">'.$ValidasiGambar.'</code>';
                     }
                 }else{
-                    $ValidasiHapusRelasi="Terjadi Kesalahan Pada Saat Menghapus Data Anggota Pada Tabel Anggota";
+                    echo '<code class="text-danger">Terjadi kesalahan Pada Saat Menghapus Data</code>';
                 }
             }
         }
