@@ -66,6 +66,15 @@
             )
         </script>
     <?php } ?>
+    <?php if($NotifikasiSwal=="Simpan Setting Email Berhasil"){ ?>
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Simpan Setting Email Berhasil!',
+                'success'
+            )
+        </script>
+    <?php } ?>
 <?php 
     unset($_SESSION['NotifikasiSwal']);
     }

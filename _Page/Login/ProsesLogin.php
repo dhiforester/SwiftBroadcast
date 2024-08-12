@@ -36,10 +36,10 @@
         } else {
             if ($mode_akses == "Supervisi") {
                 $stmt = $Conn->prepare("SELECT * FROM supervisi WHERE email = ? AND password = ?");
-                $stmt->bind_param("ss", $email, $passwordMd5);
+                $stmt->bind_param("ss", $email, $password);
             } else {
                 $stmt = $Conn->prepare("SELECT * FROM anggota WHERE email = ? AND password = ?");
-                $stmt->bind_param("ss", $email, $passwordMd5);
+                $stmt->bind_param("ss", $email, $password);
             }
         }
         if ($stmt === false) {

@@ -54,33 +54,18 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link <?php if($PageMenu=="SimpanPinjam"||$PageMenu=="BukuBesar"||$PageMenu=="NeracaSaldo"||$PageMenu=="LabaRugi"||$PageMenu=="RekapitulasiTransaksi"){echo "";}else{echo "collapsed";} ?>" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="javascript:void(0);">
+            <a class="nav-link <?php if($PageMenu=="KinerjaSupervisi"||$PageMenu=="BukuBesar"||$PageMenu=="NeracaSaldo"||$PageMenu=="LabaRugi"||$PageMenu=="RekapitulasiTransaksi"){echo "";}else{echo "collapsed";} ?>" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="javascript:void(0);">
                 <i class="bi bi-bar-chart"></i><span>Laporan</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="charts-nav" class="nav-content collapse <?php if($PageMenu=="SimpanPinjam"||$PageMenu=="BukuBesar"||$PageMenu=="NeracaSaldo"||$PageMenu=="LabaRugi"||$PageMenu=="RekapitulasiTransaksi"){echo "show";} ?>" data-bs-parent="#sidebar-nav">
+            <ul id="charts-nav" class="nav-content collapse <?php if($PageMenu=="KinerjaSupervisi"||$PageMenu=="BukuBesar"||$PageMenu=="NeracaSaldo"||$PageMenu=="LabaRugi"||$PageMenu=="RekapitulasiTransaksi"){echo "show";} ?>" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="index.php?Page=SimpanPinjam" class="<?php if($PageMenu=="SimpanPinjam"){echo "active";} ?>">
-                        <i class="bi bi-circle"></i><span>Simpan-Pinjam</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="index.php?Page=BukuBesar" class="<?php if($PageMenu=="BukuBesar"){echo "active";} ?>">
-                        <i class="bi bi-circle"></i><span>Buku Besar</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="index.php?Page=NeracaSaldo" class="<?php if($PageMenu=="NeracaSaldo"){echo "active";} ?>">
-                        <i class="bi bi-circle"></i><span>Neraca saldo</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="index.php?Page=LabaRugi" class="<?php if($PageMenu=="LabaRugi"){echo "active";} ?>">
-                        <i class="bi bi-circle"></i><span>Laba Rugi</span>
+                    <a href="index.php?Page=KinerjaSupervisi" class="<?php if($PageMenu=="KinerjaSupervisi"){echo "active";} ?>">
+                    <i class="bi bi-circle"></i><span>Kinerja Supervisi</span>
                     </a>
                 </li>
                 <li>
                     <a href="index.php?Page=RekapitulasiTransaksi" class="<?php if($PageMenu=="RekapitulasiTransaksi"){echo "active";} ?>">
-                    <i class="bi bi-circle"></i><span>Rekapitulasi</span>
+                    <i class="bi bi-circle"></i><span>Rekapitulasi Transaksi</span>
                     </a>
                 </li>
             </ul>
