@@ -57,8 +57,8 @@
                                                         <i class="bi bi-person"></i>
                                                     </span>
                                                     <select name="mode_akses" id="mode_akses" class="form-control" required>
-                                                        <option value="Pengurus">Admin</option>
-                                                        <option value="Pengurus">Supervisi</option>
+                                                        <option value="Admin">Admin</option>
+                                                        <option value="Supervisi">Supervisi</option>
                                                         <option value="Anggota">CS</option>
                                                     </select>
                                                     <div class="invalid-feedback">Please enter your username.</div>

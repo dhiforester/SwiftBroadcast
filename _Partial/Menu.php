@@ -9,10 +9,14 @@
     }else{
         $SubMenu=$_GET['Sub'];
     }
-    if($SessionAkses=="Anggota"){
-        include "_Partial/MenuAnggota.php";
+    if($SessionAkses=="Admin"){
+        include "_Partial/MenuAdmin.php";
     }else{
-        include "_Partial/MenuPengurus.php";
+        if($SessionAkses=="Supervisi"){
+            include "_Partial/MenuSupervisi.php";
+        }else{
+            include "_Partial/MenuAnggota.php";
+        }
     }
 ?>
  

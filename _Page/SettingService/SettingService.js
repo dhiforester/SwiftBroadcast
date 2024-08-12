@@ -139,36 +139,21 @@ $('#ProsesSettingEmail').submit(function(){
         }
     });
 });
-//Modal Test Send Email
-$('#ModalTestSendEmail').on('show.bs.modal', function (e) {
-    var Loading='<div class="modal-body"><div class="row"><div class="col col-md-12 text-center"><div class="spinner-border text-secondary" role="status"><span class="sr-only">Loading...</span></div></div></div></div>';
-    $('#FormTestSendEmail').html(Loading);
+//Proses Test Kirim Email
+$('#ProsesTestKirimEmail').submit(function(){
+    $('#NotifikasiTestKirimEmail').html("Loading..");
+    var form = $('#ProsesTestKirimEmail')[0];
+    var data = new FormData(form);
     $.ajax({
         type 	    : 'POST',
-        url 	    : '_Page/SettingService/FormTestSendEmail.php',
+        url 	    : '_Page/SettingService/ProsesTestSendEmail.php',
+        data 	    :  data,
+        cache       : false,
+        processData : false,
+        contentType : false,
+        enctype     : 'multipart/form-data',
         success     : function(data){
-            $('#FormTestSendEmail').html(data);
-            $('#ProsesTestSendEmail').submit(function(){
-                $('#NotifikasiTestSendEmail').html("Loading..");
-                var form = $('#ProsesTestSendEmail')[0];
-                var data = new FormData(form);
-                $.ajax({
-                    type 	    : 'POST',
-                    url 	    : '_Page/SettingService/ProsesTestSendEmail.php',
-                    data 	    :  data,
-                    cache       : false,
-                    processData : false,
-                    contentType : false,
-                    enctype     : 'multipart/form-data',
-                    success     : function(data){
-                        $('#NotifikasiTestSendEmail').html(data);
-                        var NotifikasiTestSendEmailBerhasil=$('#NotifikasiTestSendEmailBerhasil').html();
-                        if(NotifikasiTestSendEmailBerhasil=="Success"){
-                            window.location.href = "index.php?Page=SettingEmail";
-                        }
-                    }
-                });
-            });
+            $('#NotifikasiTestKirimEmail').html(data);
         }
     });
 });

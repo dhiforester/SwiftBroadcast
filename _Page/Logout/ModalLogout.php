@@ -1,29 +1,20 @@
 <div class="modal fade" id="ModalLogout" tabindex="-1">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Logout</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <img src="assets/img/logout.gif" alt="" width="100%">
+            <div class="modal-body p-0">
+                <div class="image-container" style="position: relative;">
+                    <img src="assets/img/logout.png" alt="" class="img-fluid w-100">
+                    <div class="overlay-text text-center text-light" style="position: absolute; bottom: 0; width: 100%; background: rgba(0, 0, 0, 0.5);">
+                        <small>Apakah anda yakin akan keluar dari aplikasi?</small>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12 text-center text-warning">
-                        <small>Are you sure want to log out?</small>
-                    </div>
-                </div>
-                
             </div>
-            <div class="modal-footer">
-                <a href="_Page/Logout/ProsesLogout.php" class="btn btn-primary">
-                    <i class="bi bi-check-circle"></i> Yes
+            <div class="modal-footer justify-content-between">
+                <a href="_Page/Logout/ProsesLogout.php" class="btn btn-primary w-100">
+                    <i class="bi bi-check-circle"></i> Ya, Logout
                 </a>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="bi bi-x-circle"></i> No
+                <button type="button" class="btn btn-dark w-100" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> Batalkan
                 </button>
             </div>
         </div>

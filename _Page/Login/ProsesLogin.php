@@ -30,24 +30,35 @@
         $passwordMd5 = md5($password);
 
         // Use prepared statements to prevent SQL injection
-        if ($mode_akses == "Pengurus") {
+        if ($mode_akses == "Admin") {
             $stmt = $Conn->prepare("SELECT * FROM akses WHERE email_akses = ? AND password = ?");
             $stmt->bind_param("ss", $email, $passwordMd5);
         } else {
-            $stmt = $Conn->prepare("SELECT * FROM akses_anggota WHERE email = ? AND password = ?");
-            $stmt->bind_param("ss", $email, $passwordMd5);
+            if ($mode_akses == "Supervisi") {
+                $stmt = $Conn->prepare("SELECT * FROM supervisi WHERE email = ? AND password = ?");
+                $stmt->bind_param("ss", $email, $passwordMd5);
+            } else {
+                $stmt = $Conn->prepare("SELECT * FROM anggota WHERE email = ? AND password = ?");
+                $stmt->bind_param("ss", $email, $passwordMd5);
+            }
         }
-
         if ($stmt === false) {
             die('Prepare failed: ' . htmlspecialchars($Conn->error));
         }
-
         $stmt->execute();
         $result = $stmt->get_result();
         $DataAkses = $result->fetch_assoc();
 
         if ($DataAkses) {
-            $id_akses = $mode_akses == "Pengurus" ? $DataAkses["id_akses"] : $DataAkses["id_akses_anggota"];
+            if ($mode_akses == "Admin") {
+                $id_akses = $DataAkses["id_akses"];
+            } elseif ($mode_akses == "Supervisi") {
+                $id_akses = $DataAkses["id_supervisi"];
+            } elseif ($mode_akses == "Anggota") {
+                $id_akses = $DataAkses["id_anggota"];
+            } else {
+                $id_akses = null; // Jika tidak ada kecocokan, Anda bisa mengatur default value
+            }
 
             // Delete old login tokens
             $deleteTokenStmt = $Conn->prepare("DELETE FROM akses_login WHERE id_akses = ? AND kategori = ?");
