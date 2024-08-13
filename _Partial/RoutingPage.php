@@ -18,6 +18,9 @@
         if($Page=="Anggota"){
             include "_Page/Anggota/Anggota.php";
         }
+        if($Page=="Kontak"){
+            include "_Page/Kontak/Kontak.php";
+        }
         if($Page=="Transaksi"){
             include "_Page/Transaksi/Transaksi.php";
         }

@@ -109,7 +109,7 @@
 </script>
 <div class="row mb-3">
     <div class="table table-responsive">
-        <table class="table table-bordered table-hover">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <td align="center"><b>No</b></td>
@@ -161,8 +161,8 @@
                             <tr>
                                 <td align="center"><?php echo $no; ?></td>
                                 <td align="left"><?php echo $nama; ?></td>
-                                <td align="left"><?php echo $email; ?></td>
                                 <td align="left"><?php echo $kontak; ?></td>
+                                <td align="left"><?php echo $email; ?></td>
                                 <td align="left">
                                     <small class="credit">
                                         <code class="text text-grayish"><?php echo $password; ?></code>

@@ -89,24 +89,13 @@
                 </li> 
             </ul>
         </li>
-        <li class="nav-item">
-            <a class="nav-link <?php if($PageMenu=="Aktivitas"){echo "";}else{echo "collapsed";} ?>" data-bs-target="#catatan-aktivitas" data-bs-toggle="collapse" href="javascript:void(0);">
-                <i class="bi bi-record-btn"></i><span>Aktivitas</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="catatan-aktivitas" class="nav-content collapse <?php if($PageMenu=="Aktivitas"){echo "show";} ?>" data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="index.php?Page=Aktivitas&Sub=AktivitasUmum" class="<?php if($SubMenu=="AktivitasUmum"){echo "active";} ?>">
-                    <i class="bi bi-circle"></i><span>Aktivitas Umum</span>
-                    </a>
-                </li>
-                <!-- <li>
-                    <a href="index.php?Page=Aktivitas&Sub=Email" class="<?php if($SubMenu=="Email"){echo "active";} ?>">
-                    <i class="bi bi-circle"></i><span>Email</span>
-                    </a>
-                </li> -->
-            </ul>
-        </li>
         <li class="nav-heading">Fitur Lainnya</li>
+        <li class="nav-item">
+            <a class="nav-link <?php if($PageMenu!=="Aktivitas"){echo "collapsed";} ?>" href="index.php?Page=Aktivitas&Sub=AktivitasUmum">
+                <i class="bi bi-record-btn"></i>
+                <span>Log Aktivitas</span>
+            </a>
+        </li>
         <li class="nav-item">
             <a class="nav-link <?php if($PageMenu!=="Help"){echo "collapsed";} ?>" href="index.php?Page=Help&Sub=HelpData">
                 <i class="bi bi-question"></i>

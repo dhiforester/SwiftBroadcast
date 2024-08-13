@@ -22,6 +22,9 @@
         if($Page=="Anggota"){
             include "_Page/Anggota/ModalAnggota.php";
         }
+        if($Page=="Kontak"){
+            include "_Page/Kontak/ModalKontak.php";
+        }
         if($Page=="Transaksi"){
             include "_Page/Transaksi/ModalTransaksi.php";
         }

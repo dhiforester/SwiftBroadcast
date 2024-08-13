@@ -14,11 +14,11 @@ $(document).ready(function () {
             },
             series: [
                 {
-                    name: 'Pesan',
+                    name: 'Broadcast',
                     data: PesanSeries
                 },
                 {
-                    name: 'Transaksi',
+                    name: 'Closing',
                     data: TransaksiSeries
                 }
             ],

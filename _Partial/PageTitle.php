@@ -87,6 +87,15 @@
             echo '  </ol>';
             echo '</nav>';
         }
+        if($_GET['Page']=="Kontak"){
+            echo '<h1><a href=""><i class="bi bi-telephone"></i> Kontak</a></h1>';
+            echo '<nav>';
+            echo '  <ol class="breadcrumb">';
+            echo '      <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>';
+            echo '      <li class="breadcrumb-item active">Kontak</li>';
+            echo '  </ol>';
+            echo '</nav>';
+        }
         if($_GET['Page']=="Transaksi"){
             if(empty($_GET['Sub'])){
                 echo '<h1><a href=""><i class="bi bi-cart-check"></i> Transaksi</a></h1>';

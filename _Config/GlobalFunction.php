@@ -373,4 +373,12 @@
         // Mengembalikan nama bulan berdasarkan angka
         return $namaBulan[$angkaBulan] ?? 'Bulan tidak valid';
     }
+    function formatAngkaRibuJutaan($angka) {
+        if ($angka >= 1000000) {
+            $angka = round($angka / 1000000, 1) . ' M';
+        } elseif ($angka >= 1000) {
+            $angka = round($angka / 1000, 1) . ' K';
+        }
+        return $angka;
+    }
 ?>
