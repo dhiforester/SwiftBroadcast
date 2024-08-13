@@ -9,7 +9,7 @@
             echo '<label for="keyword">Kata Kunci</label>';
             echo '<select name="keyword" id="keyword" class="form-control">';
             echo '  <option value="">Pilih</option>';
-            $query = mysqli_query($Conn, "SELECT sumber FROM kontak ORDER BY sumber ASC");
+            $query = mysqli_query($Conn, "SELECT DISTINCT sumber FROM kontak ORDER BY sumber ASC");
             while ($data = mysqli_fetch_array($query)) {
                 $sumber= $data['sumber'];
                 echo '  <option value="'.$sumber.'">'.$sumber.'</option>';

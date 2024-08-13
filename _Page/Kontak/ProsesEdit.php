@@ -76,7 +76,7 @@
                                 include "../../_Config/InputLog.php";
                                 echo '<small class="text-success" id="NotifikasiEditBerhasil">Success</small>';
                             }else{
-                                echo '<small class="text-danger">Terjadi kesalahan pada saat menyimpan data anggota</small>';
+                                echo '<small class="text-danger">Terjadi kesalahan pada saat menyimpan data kontak</small>';
                             }
                         }
                     }

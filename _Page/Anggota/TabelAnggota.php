@@ -127,7 +127,7 @@
                     <td align="center"><b>Supervisi</b></td>
                     <td align="center"><b>Kontak</b></td>
                     <td align="center"><b>Email</b></td>
-                    <td align="center"><b>Password</b></td>
+                    <td align="center"><b>Kontak</b></td>
                     <td align="center"><b>Status</b></td>
                     <td align="center"><b>Opsi</b></td>
                 </tr>
@@ -178,6 +178,8 @@
                             }
                             //Buka Supervisi
                             $NamaSupervisi=GetDetailData($Conn,'supervisi','id_supervisi',$id_supervisi,'nama');
+                            //Jumlah Kontak
+                            $JumlahKontak = mysqli_num_rows(mysqli_query($Conn, "SELECT id_kontak FROM kontak WHERE id_anggota='$id_anggota'"));
                 ?>
                             <tr>
                                 <td align="center"><?php echo $no; ?></td>
@@ -192,7 +194,7 @@
                                 <td align="left">
                                     <small class="credit">
                                         <code class="text text-grayish">
-                                            <?php echo $password; ?>
+                                            <?php echo "$JumlahKontak Record"; ?>
                                         </code>
                                     </small>
                                 </td>

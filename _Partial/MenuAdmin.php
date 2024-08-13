@@ -48,6 +48,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link <?php if($PageMenu!=="DistribusiKontak"){echo "collapsed";} ?>" href="index.php?Page=DistribusiKontak">
+                <i class="bi bi-box-arrow-in-down-right"></i>
+                <span>Distribusi Kontak</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link <?php if($PageMenu!=="Transaksi"){echo "collapsed";} ?>" href="index.php?Page=Transaksi">
                 <i class="bi bi-cart-check"></i>
                 <span>Transaksi</span>

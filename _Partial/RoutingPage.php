@@ -21,6 +21,9 @@
         if($Page=="Kontak"){
             include "_Page/Kontak/Kontak.php";
         }
+        if($Page=="DistribusiKontak"){
+            include "_Page/DistribusiKontak/DistribusiKontak.php";
+        }
         if($Page=="Transaksi"){
             include "_Page/Transaksi/Transaksi.php";
         }
