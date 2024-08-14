@@ -64,7 +64,7 @@
                                 <div class="ps-3">
                                     <?php
                                         echo '  <span class="text-muted small pt-1 fw-bold">'.$JumlahPesanTerkirimFormat.'</span><br>';
-                                        echo '  <span class="text-muted small pt-2 ps-1">Rp/IDR</span>';
+                                        echo '  <span class="text-muted small pt-2 ps-1">Kali</span>';
                                     ?>
                                 </div>
                             </div>

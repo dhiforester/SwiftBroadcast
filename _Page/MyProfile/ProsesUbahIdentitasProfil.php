@@ -16,27 +16,27 @@
             if(empty($_POST['kontak_akses'])){
                 echo '<small class="text-danger">Kontak tidak boleh kosong</small>';
             }else{
-                //Validasi kontak tidak boleh lebih dari 20 karakter
-                $JumlahKarakterKontak=strlen($_POST['kontak_akses']);
-                if($JumlahKarakterKontak>20||$JumlahKarakterKontak<6||!preg_match("/^[0-9]*$/", $_POST['kontak_akses'])){
-                    echo '<small class="text-danger">Kontak hanya boleh terdiri dari 6-20 karakter numerik</small>';
+                //Validasi email tidak boleh kosong
+                if(empty($_POST['email_akses'])){
+                    echo '<small class="text-danger">Email tidak boleh kosong</small>';
                 }else{
-                    //Validasi kontak tidak boleh duplikat
-                    $id_akses=$SessionIdAkses;
-                    $id_akses=validateAndSanitizeInput($id_akses);
-                    $kontak_akses=$_POST['kontak_akses'];
-                    $kontak_akses_lama=GetDetailData($Conn,'akses','id_akses',$id_akses,'kontak_akses');
-                    if($kontak_akses_lama==$kontak_akses){
-                        $ValidasiKontakDuplikat=0;
+                    //Validasi kontak tidak boleh lebih dari 20 karakter
+                    $JumlahKarakterKontak=strlen($_POST['kontak_akses']);
+                    if($JumlahKarakterKontak>20||$JumlahKarakterKontak<6||!preg_match("/^[0-9]*$/", $_POST['kontak_akses'])){
+                        echo '<small class="text-danger">Kontak hanya boleh terdiri dari 6-20 karakter numerik</small>';
                     }else{
-                        $ValidasiKontakDuplikat=mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM akses WHERE kontak_akses='$kontak_akses'"));
-                    }
-                    if(!empty($ValidasiKontakDuplikat)){
-                        echo '<small class="text-danger">Nomor kontak sudah terdaftar</small>';
-                    }else{
-                        //Validasi email tidak boleh kosong
-                        if(empty($_POST['email_akses'])){
-                            echo '<small class="text-danger">Email tidak boleh kosong</small>';
+                        //Validasi kontak tidak boleh duplikat
+                        $id_akses=$SessionIdAkses;
+                        $id_akses=validateAndSanitizeInput($id_akses);
+                        $kontak_akses=$_POST['kontak_akses'];
+                        $kontak_akses_lama=GetDetailData($Conn,'akses','id_akses',$id_akses,'kontak_akses');
+                        if($kontak_akses_lama==$kontak_akses){
+                            $ValidasiKontakDuplikat=0;
+                        }else{
+                            $ValidasiKontakDuplikat=mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM akses WHERE kontak_akses='$kontak_akses'"));
+                        }
+                        if(!empty($ValidasiKontakDuplikat)){
+                            echo '<small class="text-danger">Nomor kontak sudah terdaftar</small>';
                         }else{
                             //Validasi email duplikat
                             $email_akses=$_POST['email_akses'];

@@ -57,22 +57,37 @@
         //Buat Json
         $jsonData = json_encode($dataList, JSON_PRETTY_PRINT);
         //Simpan Data Distribusi
-        $Entry="INSERT INTO distribusi_kontak (
-            id_anggota,
-            tanggal,
-            distribusi,
-            list_kontak
-        ) VALUES (
-            '$id_anggota',
-            '$tanggal',
-            '$JumlahKontak',
-            '$jsonData'
-        )";
-        $Input=mysqli_query($Conn, $Entry);
-        if($Input){
-            $StatusProses='<code class="text-success">Berhasil</code>';
+        //Cek Keberadaan Data Distribusi Kontak
+        $QryDuplikat = mysqli_query($Conn,"SELECT * FROM distribusi_kontak WHERE id_anggota='$id_anggota' AND tanggal='$tanggal'")or die(mysqli_error($Conn));
+        $DataDuplikat = mysqli_fetch_array($QryDuplikat);
+        if(empty($DataDuplikat['id_distribusi_kontak'])){
+            $Entry="INSERT INTO distribusi_kontak (
+                id_anggota,
+                tanggal,
+                distribusi,
+                list_kontak
+            ) VALUES (
+                '$id_anggota',
+                '$tanggal',
+                '$JumlahKontak',
+                '$jsonData'
+            )";
+            $Input=mysqli_query($Conn, $Entry);
+            if($Input){
+                $StatusProses='<code class="text-success">Berhasil</code>';
+            }else{
+                $StatusProses='<code class="text-danger">Gagal</code>';
+            }
         }else{
-            $StatusProses='<code class="text-danger">Gagal</code>';
+            $UpdateDistribusi = mysqli_query($Conn,"UPDATE distribusi_kontak SET 
+                distribusi='$JumlahKontak',
+                list_kontak='$jsonData'
+            WHERE id_anggota='$id_anggota' AND tanggal='$tanggal'") or die(mysqli_error($Conn)); 
+            if($UpdateDistribusi){
+                $StatusProses='<code class="text-success">Berhasil</code>';
+            }else{
+                $StatusProses='<code class="text-danger">Gagal</code>';
+            }
         }
         echo '<tr>';
         echo '  <td>'.$nama.'</td>';

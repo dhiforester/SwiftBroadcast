@@ -206,6 +206,16 @@
             echo '  </ol>';
             echo '</nav>';
         }
+        //Anggota
+        if($_GET['Page']=="KontakAnggota"){
+            echo '<h1><a href=""><i class="bi bi-telephone"></i> Kontak</a></h1>';
+            echo '<nav>';
+            echo '  <ol class="breadcrumb">';
+            echo '      <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>';
+            echo '      <li class="breadcrumb-item active">Kontak</li>';
+            echo '  </ol>';
+            echo '</nav>';
+        }
         if($_GET['Page']=="Error"){
             echo '<h1><i class="bi bi-emoji-angry"></i> Error</h1>';
             echo '<nav>';

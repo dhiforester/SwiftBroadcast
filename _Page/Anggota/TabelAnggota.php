@@ -119,7 +119,7 @@
 </div>
 <div class="row mb-3">
     <div class="table table-responsive">
-        <table class="table table-bordered table-hover">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <td align="center"><b>No</b></td>

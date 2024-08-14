@@ -1,16 +1,26 @@
 <?php
     if($SessionKategoriAkses=="Anggota"){
-        $SessionGambar=GetDetailData($Conn,'akses_anggota','id_akses_anggota',$SessionIdAkses,'photo_profile');
-        $SessionNama=GetDetailData($Conn,'akses_anggota','id_akses_anggota',$SessionIdAkses,'nama_anggota');
+        $SessionGambar=GetDetailData($Conn,'anggota','id_anggota',$SessionIdAkses,'foto');
+        $SessionNama=GetDetailData($Conn,'anggota','id_anggota',$SessionIdAkses,'nama');
+        $SessionKontakAkses=GetDetailData($Conn,'anggota','id_anggota',$SessionIdAkses,'kontak');
+        $SessionEmailAkses=GetDetailData($Conn,'anggota','id_anggota',$SessionIdAkses,'email');
         $SessionAkses=$SessionKategoriAkses;
     }else{
-        $SessionNama=GetDetailData($Conn,'akses','id_akses',$SessionIdAkses,'nama_akses');
-        $SessionKontakAkses=GetDetailData($Conn,'akses','id_akses',$SessionIdAkses,'kontak_akses');
-        $SessionEmailAkses=GetDetailData($Conn,'akses','id_akses',$SessionIdAkses,'email_akses');
-        $SessionGambar=GetDetailData($Conn,'akses','id_akses',$SessionIdAkses,'image_akses');
-        $SessionLevelAkses=GetDetailData($Conn,'akses','id_akses',$SessionIdAkses,'akses');
-        $SessionDatetimeDaftar=GetDetailData($Conn,'akses','id_akses',$SessionIdAkses,'datetime_daftar');
-        $SessionDatetimeUpdate=GetDetailData($Conn,'akses','id_akses',$SessionIdAkses,'datetime_update');
-        $SessionAkses=$SessionKategoriAkses;
+        if($SessionKategoriAkses=="Supervisi"){
+            $SessionGambar=GetDetailData($Conn,'supervisi','id_supervisi',$SessionIdAkses,'foto');
+            $SessionNama=GetDetailData($Conn,'supervisi','id_supervisi',$SessionIdAkses,'nama');
+            $SessionKontakAkses=GetDetailData($Conn,'supervisi','id_supervisi',$SessionIdAkses,'kontak');
+            $SessionEmailAkses=GetDetailData($Conn,'supervisi','id_supervisi',$SessionIdAkses,'email');
+            $SessionAkses=$SessionKategoriAkses;
+        }else{
+            $SessionNama=GetDetailData($Conn,'akses','id_akses',$SessionIdAkses,'nama_akses');
+            $SessionKontakAkses=GetDetailData($Conn,'akses','id_akses',$SessionIdAkses,'kontak_akses');
+            $SessionEmailAkses=GetDetailData($Conn,'akses','id_akses',$SessionIdAkses,'email_akses');
+            $SessionGambar=GetDetailData($Conn,'akses','id_akses',$SessionIdAkses,'image_akses');
+            $SessionLevelAkses=GetDetailData($Conn,'akses','id_akses',$SessionIdAkses,'akses');
+            $SessionDatetimeDaftar=GetDetailData($Conn,'akses','id_akses',$SessionIdAkses,'datetime_daftar');
+            $SessionDatetimeUpdate=GetDetailData($Conn,'akses','id_akses',$SessionIdAkses,'datetime_update');
+            $SessionAkses=$SessionKategoriAkses;
+        }
     }
 ?>

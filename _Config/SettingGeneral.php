@@ -11,4 +11,5 @@
     $favicon= $DataSettingGeneral['favicon'];
     $logo= $DataSettingGeneral['logo'];
     $base_url= $DataSettingGeneral['base_url'];
+    $PesanTemplate="Hai [nama pelanggan], [barang] yang Anda inginkan sekarang telah kembali karena permintaan yang tinggi 🥳 Sebagai ucapan terima kasih karena telah menunggu, kami menawarkan pengiriman gratis untuk pembelian di atas [jumlah]. Dapatkan sekarang di [URL]!";
 ?>

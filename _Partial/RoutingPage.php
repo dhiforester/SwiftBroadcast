@@ -42,6 +42,10 @@
         if($Page=="Aktivitas"){
             include "_Page/Aktivitas/Aktivitas.php";
         }
+        //Anggota
+        if($Page=="KontakAnggota"){
+            include "_Page/KontakAnggota/KontakAnggota.php";
+        }
         if($Page=="Error"){
             include "_Page/Error/Error.php";
         }

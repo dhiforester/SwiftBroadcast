@@ -1300,3 +1300,9 @@ h6 {
 .rekap_kontak{
   background-image: linear-gradient(to right top, #79c28f, #7dc392, #80c595, #84c698, #87c79b, #87c79b, #87c79b, #87c79b, #84c698, #80c595, #7dc392, #79c28f);
 }
+.text_kanan{
+  right: 0 !important;
+  float: right !important;
+  margin-right:1px !important;
+  padding-right:1px !important;
+}

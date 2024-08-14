@@ -40,6 +40,10 @@
         if($Page=="Aktivitas"){
             include "_Page/Aktivitas/ModalAktivitas.php";
         }
+        //Anggota
+        if($Page=="KontakAnggota"){
+            include "_Page/KontakAnggota/ModalKontakAnggota.php";
+        }
         if($Page=="Help"){
             include "_Page/Help/ModalHelp.php";
         }

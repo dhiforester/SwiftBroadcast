@@ -64,10 +64,20 @@
                     ?>
                 </ul>
             </li>
-            
+            <?php
+                if($SessionKategoriAkses=="Admin"){
+                    $UrlFotoProfile='assets/img/User/'.$SessionGambar.'';
+                }else{
+                    if($SessionKategoriAkses=="Anggota"){
+                        $UrlFotoProfile='assets/img/Anggota/'.$SessionGambar.'';
+                    }else{
+                        $UrlFotoProfile='assets/img/User/'.$SessionGambar.'';
+                    }
+                }
+            ?>
             <li class="nav-item dropdown pe-3">
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="assets/img/User/<?php echo $SessionGambar;?>" alt="Profile" class="rounded-circle">
+                    <img src="<?php echo $UrlFotoProfile;?>" alt="Profile" class="rounded-circle">
                     <span class="d-none d-md-block dropdown-toggle ps-2 text-white"><?php echo $SessionNama;?></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">

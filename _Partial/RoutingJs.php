@@ -42,6 +42,10 @@
         if($Page=="Help"){
             echo '<script type="text/javascript" src="_Page/Help/Help.js"></script>';
         }
+        //Anggota
+        if($Page=="KontakAnggota"){
+            echo '<script type="text/javascript" src="_Page/KontakAnggota/KontakAnggota.js"></script>';
+        }
     }
     //default Login
     echo '<script type="text/javascript" src="_Page/Pendaftaran/Pendaftaran.js"></script>';

@@ -6,6 +6,18 @@
                 <span>Dashboard</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link <?php if($PageMenu!=="KontakAnggota"){echo "collapsed";} ?>" href="index.php?Page=KontakAnggota">
+                <i class="bi bi-telephone"></i>
+                <span>Kontak</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <?php if($PageMenu!=="TransaksiAnggota"){echo "collapsed";} ?>" href="index.php?Page=TransaksiAnggota">
+                <i class="bi bi-cart-check"></i>
+                <span>Transaksi/Closing</span>
+            </a>
+        </li>
         <li class="nav-heading">Fitur Lainnya</li>
         <li class="nav-item">
             <a class="nav-link <?php if($PageMenu!=="Version"){echo "collapsed";} ?>" href="index.php?Page=Version">
