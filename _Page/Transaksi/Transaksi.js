@@ -9,28 +9,6 @@ function filterAndLoadTable() {
         }
     });
 }
-function filterJenisTransaksi() {
-    var FormFilterJenisTransaksi = $('#FormFilterJenisTransaksi').serialize();
-    $.ajax({
-        type: 'POST',
-        url: '_Page/Transaksi/TabelJenisTransaksi.php',
-        data: FormFilterJenisTransaksi,
-        success: function(data) {
-            $('#MenampilkanTabelJenisTransaksi').html(data);
-        }
-    });
-}
-function jurnalTransaksi() {
-    var get_id_transaksi = $('#get_id_transaksi').val();
-    $.ajax({
-        type: 'POST',
-        url: '_Page/Transaksi/TabelJurnalTransaksi.php',
-        data: {id_transaksi: get_id_transaksi},
-        success: function(data) {
-            $('#MenampilkanJurnalTransaksi').html(data);
-        }
-    });
-}
 //Semua class nominal hanya angka
 $('.nominal_angka').on('keypress', function(e) {
     // Hanya mengizinkan angka (0-9)
@@ -41,12 +19,9 @@ $('.nominal_angka').on('keypress', function(e) {
 //Menampilkan Data Transaksi
 $(document).ready(function() {
     filterAndLoadTable();
-    filterJenisTransaksi();
-    jurnalTransaksi();
 });
 $('#keyword_by').change(function(){
     var keyword_by = $('#keyword_by').val();
-    $('#FormFilter').html('Loading...');
     $.ajax({
         type 	    : 'POST',
         url 	    : '_Page/Transaksi/FormFilter.php',
@@ -65,61 +40,7 @@ $('#FormFilterJenisTransaksi').submit(function(){
     $('#PutPageJenisTransaksi').val("1");
     filterJenisTransaksi();
 });
-//Ketika User Menambahkan Uraian
-let counter = 1; // Initialize a counter for numbering rows
-$('#TambahUraian').click(function() {
-    // Remove the notification row if it exists
-    $('#NotifikasiAwalUraian').remove();
-    // Append a new row to the tbody
-    $('#UraianTransaksi').append(`
-        <tr>
-            <td align="center"><input type="text" name="uraian[]" class="form-control" placeholder="Uraian/Keterangan"></td>
-            <td align="center"><input type="text" name="harga[]" class="form-control nominal2 harga" placeholder="Harga"></td>
-            <td align="center"><input type="text" name="qty[]" class="form-control nominal2 qty" placeholder="QTY"></td>
-            <td align="center"><input type="text" name="satuan[]" class="form-control" placeholder="Satuan"></td>
-            <td align="center"><input type="text" name="jumlah[]" class="form-control nominal2 jumlah" placeholder="Jumlah" readonly></td>
-            <td align="center">
-                <button type="button" class="btn btn-danger btn-sm remove-row"><i class="bi bi-x"></i></button>
-            </td>
-        </tr>
-    `);
-    $('.nominal2').on('keypress', function(e) {
-        // Hanya mengizinkan angka (0-9)
-        if (e.which < 48 || e.which > 57) {
-            e.preventDefault();
-        }
-    });
-    counter++; // Increment the row counter
-});
 
-// Event delegation for removing a row
-$(document).on('click', '.remove-row', function() {
-    $(this).closest('tr').remove();
-    // Recalculate total after deletion
-    calculateTotal();
-});
-
-// Event delegation for calculating the total when Harga or QTY is changed
-$(document).on('input', '.harga, .qty', function() {
-    let row = $(this).closest('tr');
-    let harga = parseFloat(row.find('.harga').val()) || 0;
-    let qty = parseFloat(row.find('.qty').val()) || 0;
-    let jumlah = harga * qty;
-    row.find('.jumlah').val(jumlah);
-
-    // Recalculate total after any change
-    calculateTotal();
-});
-
-// Function to calculate and update the total amount
-function calculateTotal() {
-    let total = 0;
-    $('.jumlah').each(function() {
-        total += parseFloat($(this).val()) || 0;
-    });
-    $('#JumlahTotal').val(total);
-    $('#JumlahTotal2').html(total);
-}
 //Proses Tambah Transaksi
 $('#ProsesTambahTransaksi').submit(function(){
     $('#NotifikasiTambahTransaksi').html('<div class="spinner-border text-secondary" role="status"><span class="sr-only"></span></div>');

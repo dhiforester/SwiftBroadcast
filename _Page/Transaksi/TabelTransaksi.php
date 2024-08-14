@@ -45,7 +45,7 @@
         if(empty($keyword)){
             $jml_data = mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM transaksi"));
         }else{
-            $jml_data = mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM transaksi WHERE nama_transaksi like '%$keyword%' OR kategori like '%$keyword%' OR tanggal like '%$keyword%' OR jumlah like '%$keyword%' OR pembayaran like '%$keyword%' OR status like '%$keyword%'"));
+            $jml_data = mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM transaksi WHERE id_supervisi like '%$keyword%' OR id_anggota like '%$keyword%' OR datetime_transaksi like '%$keyword%' OR status_pembayaran like '%$keyword%' OR status_pengiriman like '%$keyword%'"));
         }
     }else{
         if(empty($keyword)){
@@ -107,28 +107,18 @@
         })
     });
 </script>
-<div class="row">
-    <div class="col-md-4">
-        <small class="credit">
-            Halaman : <code class="text-grayish"><?php echo "$page/$JmlHalaman"; ?></code>
-        </small><br>
-        <small class="credit">
-            Jumlah Data : <code class="text-grayish"><?php echo "$jml_data"; ?></code>
-        </small>
-    </div>
-</div>
 <div class="row mb-3">
     <div class="table table-responsive">
-        <table class="table table-bordered table-hover">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <td align="center"><b>No</b></td>
                     <td align="center"><b>Tanggal & Jam</b></td>
-                    <td align="center"><b>Nama Transaksi</b></td>
-                    <td align="center"><b>Kategori</b></td>
-                    <td align="center"><b>Jumlah</b></td>
+                    <td align="center"><b>Supervisi</b></td>
+                    <td align="center"><b>Customer Service</b></td>
+                    <td align="center"><b>Pelanggan</b></td>
                     <td align="center"><b>Pembayaran</b></td>
-                    <td align="center"><b>Status</b></td>
+                    <td align="center"><b>Pengiriman</b></td>
                     <td align="center"><b>Opsi</b></td>
                 </tr>
             </thead>
@@ -149,7 +139,7 @@
                             if(empty($keyword)){
                                 $query = mysqli_query($Conn, "SELECT*FROM transaksi ORDER BY $OrderBy $ShortBy LIMIT $posisi, $batas");
                             }else{
-                                $query = mysqli_query($Conn, "SELECT*FROM transaksi WHERE nama_transaksi like '%$keyword%' OR kategori like '%$keyword%' OR tanggal like '%$keyword%' OR jumlah like '%$keyword%' OR pembayaran like '%$keyword%' OR status like '%$keyword%' ORDER BY $OrderBy $ShortBy LIMIT $posisi, $batas");
+                                $query = mysqli_query($Conn, "SELECT*FROM transaksi WHERE id_supervisi like '%$keyword%' OR id_anggota like '%$keyword%' OR datetime_transaksi like '%$keyword%' OR status_pembayaran like '%$keyword%' OR status_pengiriman like '%$keyword%' ORDER BY $OrderBy $ShortBy LIMIT $posisi, $batas");
                             }
                         }else{
                             if(empty($keyword)){
@@ -161,17 +151,21 @@
                         while ($data = mysqli_fetch_array($query)) {
                             $id_transaksi= $data['id_transaksi'];
                             $uuid_transaksi= $data['uuid_transaksi'];
-                            $nama_transaksi= $data['nama_transaksi'];
-                            $kategori= $data['kategori'];
-                            $tanggal= $data['tanggal'];
+                            $id_supervisi= $data['id_supervisi'];
+                            $id_anggota= $data['id_anggota'];
+                            $id_kontak= $data['id_kontak'];
+                            $datetime_transaksi= $data['datetime_transaksi'];
                             $jumlah= $data['jumlah'];
-                            $pembayaran= $data['pembayaran'];
-                            $status= $data['status'];
-                            $PembayaranFormat = "" . number_format($pembayaran,0,',','.');
-                            $JumlahFormat = "Rp " . number_format($jumlah,0,',','.');
+                            $status_pembayaran= $data['status_pembayaran'];
+                            $status_pengiriman= $data['status_pengiriman'];
+                            $jumlah = "" . number_format($jumlah,0,',','.');
                             //Format Tanggal
-                            $strtotime=strtotime($tanggal);
+                            $strtotime=strtotime($datetime_transaksi);
                             $TanggalFormat=date('d/m/Y H:i:s T', $strtotime);
+                            //Buka Nama Supervisi
+                            $NamaSupervisi=GetDetailData($Conn,'supervisi','id_supervisi',$id_supervisi,'nama');
+                            $NamaCs=GetDetailData($Conn,'anggota','id_anggota',$id_anggota,'nama');
+                            $NamaKontak=GetDetailData($Conn,'kontak','id_kontak',$id_kontak,'nama');
                 ?>
                             <tr>
                                 <td align="center"><?php echo $no; ?></td>
@@ -182,36 +176,52 @@
                                 </td>
                                 <td align="left">
                                     <small class="credit">
-                                        <code class="text-dark"><?php echo $nama_transaksi; ?></code>
+                                        <code class="text-dark"><?php echo $NamaSupervisi; ?></code>
                                     </small>
                                 </td>
                                 <td align="left">
                                     <small class="credit">
-                                        <code class="text-dark"><?php echo $kategori; ?></code>
+                                        <code class="text-dark"><?php echo $NamaCs; ?></code>
                                     </small>
                                 </td>
                                 <td align="right">
                                     <small class="credit">
-                                        <code class="text-dark"><?php echo $JumlahFormat; ?></code>
+                                        <code class="text-dark"><?php echo $NamaKontak; ?></code>
                                     </small>
                                 </td>
                                 <td align="right">
-                                    <small class="credit">
-                                        <code class="text-dark"><?php echo $PembayaranFormat; ?></code>
-                                    </small>
+                                    <?php
+                                        if($status_pembayaran=="Lunas"){
+                                            echo '<badge class="badge bg-success">Lunas</badge>';
+                                        }else{
+                                            if($status_pembayaran=="Dibatalkan"){
+                                                echo '<badge class="badge bg-danger">Dibatalkan</badge>';
+                                            }else{
+                                                if($status_pembayaran=="Pending"){
+                                                    echo '<badge class="badge bg-warning">Pending</badge>';
+                                                }else{
+                                                    echo '<badge class="badge bg-dark">None</badge>';
+                                                }
+                                            }
+                                        }
+                                    ?>
                                 </td>
                                 <td align="center">
                                     <?php
-                                        if($status=="Lunas"){
-                                            echo '<badge class="badge bg-success">Lunas</badge>';
+                                        if($status_pengiriman=="Proses"){
+                                            echo '<badge class="badge bg-info">Proses</badge>';
                                         }else{
-                                            if($status=="Utang"){
-                                                echo '<badge class="badge bg-danger">Utang</badge>';
+                                            if($status_pengiriman=="Dibatalkan"){
+                                                echo '<badge class="badge bg-danger">Dibatalkan</badge>';
                                             }else{
-                                                if($status=="Piutang"){
-                                                    echo '<badge class="badge bg-warning">Piutang</badge>';
+                                                if($status_pengiriman=="Pending"){
+                                                    echo '<badge class="badge bg-warning">Pending</badge>';
                                                 }else{
-                                                    echo '<badge class="badge bg-dark">None</badge>';
+                                                    if($status_pengiriman=="Selesai"){
+                                                        echo '<badge class="badge bg-success">Selesai</badge>';
+                                                    }else{
+                                                        echo '<badge class="badge bg-dark">None</badge>';
+                                                    }
                                                 }
                                             }
                                         }
@@ -230,7 +240,7 @@
                                                 <i class="bi bi-info-circle"></i> Detail
                                             </a>
                                         </li>
-                                        <li>
+                                        <!-- <li>
                                             <a class="dropdown-item" href="index.php?Page=Transaksi&Sub=EditTransaksi&id=<?php echo "$id_transaksi"; ?>">
                                                 <i class="bi bi-pencil"></i> Ubah/Edit
                                             </a>
@@ -239,7 +249,7 @@
                                             <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ModalHapus" data-id="<?php echo "$id_transaksi"; ?>">
                                                 <i class="bi bi-x"></i> Hapus
                                             </a>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </td>
                             </tr>

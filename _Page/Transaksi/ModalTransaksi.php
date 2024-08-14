@@ -4,13 +4,15 @@
             <form action="javascript:void(0);" id="ProsesFilter">
                 <input type="hidden" name="page" id="page">
                 <div class="modal-header">
-                    <h5 class="modal-title text-dark"><i class="bi bi-funnel"></i> Filter Jenis Transaksi</h5>
+                    <h5 class="modal-title text-info">
+                        <i class="bi bi-funnel"></i> Filter Transaksi
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6 mt-3">
-                            <label for="batas">Data</label>
+                    <div class="row mb-3">
+                        <div class="col col-md-4"><label for="batas">Limit/Batas</label></div>
+                        <div class="col col-md-8 text-center">
                             <select name="batas" id="batas" class="form-control">
                                 <option value="5">5</option>
                                 <option selected value="10">10</option>
@@ -21,49 +23,53 @@
                                 <option value="500">500</option>
                             </select>
                         </div>
-                        <div class="col-md-6 mt-3">
-                            <label for="OrderBy">Mode Urutan</label>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col col-md-4"><label for="OrderBy">Mode Urutan</label></div>
+                        <div class="col col-md-8 text-center">
                             <select name="OrderBy" id="OrderBy" class="form-control">
                                 <option value="">Pilih</option>
-                                <option value="tanggal">Tanggal</option>
-                                <option value="nama_transaksi">Nama Transaksi</option>
-                                <option value="kategori">Kategori</option>
-                                <option value="status">Status</option>
+                                <option value="datetime_transaksi">Tanggal</option>
+                                <option value="id_supervisi">Supervisi</option>
+                                <option value="status_pembayaran">Status Pembayaran</option>
+                                <option value="status_pengiriman">Status Pengiriman</option>
                             </select>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 mt-3">
-                            <label for="ShortBy">Tipe urutan</label>
+                    <div class="row mb-3">
+                        <div class="col col-md-4"><label for="ShortBy">Tipe Urutan</label></div>
+                        <div class="col col-md-8 text-center">
                             <select name="ShortBy" id="ShortBy" class="form-control">
                                 <option value="DESC">Z To A</option>
                                 <option value="ASC">A To Z</option>
                             </select>
                         </div>
-                        <div class="col-md-6 mt-3">
-                            <label for="keyword_by">Pencarian</label>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col col-md-4"><label for="keyword_by">Dasar Pencarian</label></div>
+                        <div class="col col-md-8 text-center">
                             <select name="keyword_by" id="keyword_by" class="form-control">
                                 <option value="">Pilih</option>
-                                <option value="tanggal">Tanggal</option>
-                                <option value="nama_transaksi">Nama Transaksi</option>
-                                <option value="kategori">Kategori</option>
-                                <option value="status">Status</option>
+                                <option value="datetime_transaksi">Tanggal</option>
+                                <option value="id_supervisi">Supervisi</option>
+                                <option value="status_pembayaran">Status Pembayaran</option>
+                                <option value="status_pengiriman">Status Pengiriman</option>
                             </select>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 mt-3" id="FormFilter">
-                            <label for="keyword">Kata Kunci</label>
+                    <div class="row mb-3">
+                        <div class="col col-md-4"><label for="keyword">Kata Kunci</label></div>
+                        <div class="col col-md-8 text-center" id="FormFilter">
                             <input type="text" name="keyword" id="keyword" class="form-control">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success btn-rounded">
-                        <i class="bi bi-save"></i> Filter
+                        <i class="bi bi-filter"></i> Filter
                     </button>
                     <button type="button" class="btn btn-dark btn-rounded" data-bs-dismiss="modal">
-                        <i class="bi bi-x-circle"></i> Tutup
+                        <i class="bi bi-close"></i> Tutup
                     </button>
                 </div>
             </form>
