@@ -202,6 +202,11 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <b><?php echo "$no. $nama";?></b><br>
+                            <small class="credit">
+                                <code>
+                                    <a href="index.php?Page=TransaksiAnggota&id=<?php echo $id_kontak; ?>" class="text-primary">Transaksi/Order</a>
+                                </code>
+                            </small>
                         </div>
                         <div class="col-md-5 mb-3">
                             <div class="row">

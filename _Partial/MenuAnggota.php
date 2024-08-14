@@ -20,9 +20,9 @@
         </li>
         <li class="nav-heading">Fitur Lainnya</li>
         <li class="nav-item">
-            <a class="nav-link <?php if($PageMenu!=="Version"){echo "collapsed";} ?>" href="index.php?Page=Version">
+            <a class="nav-link <?php if($PageMenu!=="Help"){echo "collapsed";} ?>" href="index.php?Page=Help&Sub=HelpHome">
                 <i class="bi bi-info-circle"></i>
-                <span>Tentang</span>
+                <span>Bantuan</span>
             </a>
         </li>
         <li class="nav-item">

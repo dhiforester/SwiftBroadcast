@@ -44,6 +44,9 @@
         if($Page=="KontakAnggota"){
             include "_Page/KontakAnggota/ModalKontakAnggota.php";
         }
+        if($Page=="TransaksiAnggota"){
+            include "_Page/TransaksiAnggota/ModalTransaksiAnggota.php";
+        }
         if($Page=="Help"){
             include "_Page/Help/ModalHelp.php";
         }

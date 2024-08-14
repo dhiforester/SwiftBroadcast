@@ -46,6 +46,9 @@
         if($Page=="KontakAnggota"){
             include "_Page/KontakAnggota/KontakAnggota.php";
         }
+        if($Page=="TransaksiAnggota"){
+            include "_Page/TransaksiAnggota/TransaksiAnggota.php";
+        }
         if($Page=="Error"){
             include "_Page/Error/Error.php";
         }

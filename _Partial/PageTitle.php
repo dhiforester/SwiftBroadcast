@@ -216,6 +216,15 @@
             echo '  </ol>';
             echo '</nav>';
         }
+        if($_GET['Page']=="TransaksiAnggota"){
+            echo '<h1><a href=""><i class="bi bi-cart"></i> Transaksi</a></h1>';
+            echo '<nav>';
+            echo '  <ol class="breadcrumb">';
+            echo '      <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>';
+            echo '      <li class="breadcrumb-item active">Transaksi</li>';
+            echo '  </ol>';
+            echo '</nav>';
+        }
         if($_GET['Page']=="Error"){
             echo '<h1><i class="bi bi-emoji-angry"></i> Error</h1>';
             echo '<nav>';

@@ -46,6 +46,9 @@
         if($Page=="KontakAnggota"){
             echo '<script type="text/javascript" src="_Page/KontakAnggota/KontakAnggota.js"></script>';
         }
+        if($Page=="TransaksiAnggota"){
+            echo '<script type="text/javascript" src="_Page/TransaksiAnggota/TransaksiAnggota.js"></script>';
+        }
     }
     //default Login
     echo '<script type="text/javascript" src="_Page/Pendaftaran/Pendaftaran.js"></script>';

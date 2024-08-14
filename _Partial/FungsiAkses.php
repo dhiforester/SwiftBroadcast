@@ -13,6 +13,7 @@
             $SessionEmailAkses=GetDetailData($Conn,'supervisi','id_supervisi',$SessionIdAkses,'email');
             $SessionAkses=$SessionKategoriAkses;
         }else{
+            //Admin
             $SessionNama=GetDetailData($Conn,'akses','id_akses',$SessionIdAkses,'nama_akses');
             $SessionKontakAkses=GetDetailData($Conn,'akses','id_akses',$SessionIdAkses,'kontak_akses');
             $SessionEmailAkses=GetDetailData($Conn,'akses','id_akses',$SessionIdAkses,'email_akses');
