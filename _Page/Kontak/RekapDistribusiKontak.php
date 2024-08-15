@@ -3,8 +3,8 @@
     include "../../_Config/Connection.php";
     //Kontak yang sudah dihubungi
     $JumlahTotal=mysqli_num_rows(mysqli_query($Conn, "SELECT id_kontak FROM kontak"));
-    $sudah_dihubungi=mysqli_num_rows(mysqli_query($Conn, "SELECT id_kontak FROM kontak WHERE sudah_dihubungi='1'"));
-    $belum_dihubungi=mysqli_num_rows(mysqli_query($Conn, "SELECT id_kontak FROM kontak WHERE sudah_dihubungi='0'"));
+    $sudah_dihubungi=mysqli_num_rows(mysqli_query($Conn, "SELECT id_kontak FROM kontak WHERE id_anggota!='0'"));
+    $belum_dihubungi=mysqli_num_rows(mysqli_query($Conn, "SELECT id_kontak FROM kontak WHERE id_anggota='0'"));
     //Persentase
     $sh_persen=($sudah_dihubungi/$JumlahTotal)*100;
     $sh_persen=round($sh_persen);

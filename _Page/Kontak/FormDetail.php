@@ -68,12 +68,6 @@
         </div>
     </div>
     <div class="row mb-3">
-        <div class="col col-md-4">Email</div>
-        <div class="col col-md-8">
-            <?php echo $EmailLabel; ?>
-        </div>
-    </div>
-    <div class="row mb-3">
         <div class="col col-md-4">Sumber</div>
         <div class="col col-md-8">
             <?php echo $LabelSumber; ?>

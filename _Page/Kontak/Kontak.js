@@ -14,13 +14,132 @@ function ShowRekapKontak() {
         type: 'POST',
         url: '_Page/Kontak/RekapKontak.php',
         success: function(data) {
-            $('#RekapKontak').html(data);
+            var chartData = JSON.parse(data);
+            var total = chartData.series.reduce((a, b) => a + b, 0);
+            var options = {
+                chart: {
+                    type: 'donut'
+                },
+                series: chartData.series,
+                labels: chartData.labels,
+                colors: ['#00E396', '#FF4560'],
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            labels: {
+                                show: true,
+                                total: {
+                                    show: true,
+                                    label: 'Total',
+                                    formatter: function () {
+                                        return total;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                dataLabels: {
+                    enabled: true
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            };
+            var chart = new ApexCharts(document.querySelector("#RekapKontakBelumDihubungi"), options);
+            chart.render();
+        }
+    });
+}
+function RekapDistribusiKontak() {
+    $.ajax({
+        type: 'POST',
+        url: '_Page/Kontak/RekapDistribusiKontak.php',
+        success: function(data) {
+            var chartData = JSON.parse(data);
+            var total = chartData.series.reduce((a, b) => a + b, 0);
+            var options = {
+                chart: {
+                    type: 'donut'
+                },
+                series: chartData.series,
+                labels: chartData.labels,
+                colors: ['#00E396', '#FF4560'],
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            labels: {
+                                show: true,
+                                total: {
+                                    show: true,
+                                    label: 'Total',
+                                    formatter: function () {
+                                        return total;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                dataLabels: {
+                    enabled: true
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            };
+            var chart = new ApexCharts(document.querySelector("#RekapDistribusiKontak"), options);
+            chart.render();
+        }
+    });
+}
+function RekapSumberKontak() {
+    $.ajax({
+        type: 'POST',
+        url: '_Page/Kontak/RekapSumberKontak.php',
+        success: function(data) {
+            var chartData = JSON.parse(data);
+            var total = chartData.series.reduce((a, b) => a + b, 0);
+            var options = {
+                chart: {
+                    type: 'donut'
+                },
+                series: chartData.series,
+                labels: chartData.labels,
+                colors: ['#00E396', '#FF4560'],
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            labels: {
+                                show: true,
+                                total: {
+                                    show: true,
+                                    label: 'Total',
+                                    formatter: function () {
+                                        return total;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                dataLabels: {
+                    enabled: true
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            };
+            var chart = new ApexCharts(document.querySelector("#RekapSumberKontak"), options);
+            chart.render();
         }
     });
 }
 $(document).ready(function() {
     filterAndLoadTable();
     ShowRekapKontak();
+    RekapDistribusiKontak();
+    RekapSumberKontak();
 });
 $('#keyword_by').change(function(){
     var keyword_by = $('#keyword_by').val();
@@ -77,6 +196,8 @@ $('#ProsesTambah').submit(function(){
                 //Menampilkan Data
                 filterAndLoadTable();
                 ShowRekapKontak();
+                RekapDistribusiKontak();
+                RekapSumberKontak();
             }
         }
     });
@@ -136,6 +257,8 @@ $('#ProsesEdit').submit(function(){
                 //Menampilkan Data
                 filterAndLoadTable();
                 ShowRekapKontak();
+                RekapDistribusiKontak();
+                RekapSumberKontak();
             }
         }
     });
@@ -181,6 +304,8 @@ $('#ProsesHapus').submit(function(){
                 //Menampilkan Data
                 filterAndLoadTable();
                 ShowRekapKontak();
+                RekapDistribusiKontak();
+                RekapSumberKontak();
             }
         }
     });
@@ -204,6 +329,8 @@ $('#ProsesImport').submit(function(){
             $('#page').val("1");
             filterAndLoadTable();
             ShowRekapKontak();
+            RekapDistribusiKontak();
+            RekapSumberKontak();
         }
     });
 });

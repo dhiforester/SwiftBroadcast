@@ -114,7 +114,6 @@
                 <tr>
                     <td align="center"><b>No</b></td>
                     <td align="left"><b>Nama</b></td>
-                    <td align="left"><b>Email</b></td>
                     <td align="left"><b>Kontak</b></td>
                     <td align="left"><b>Sumber</b></td>
                     <td align="center"><b>Dihubungi</b></td>
@@ -126,7 +125,7 @@
                 <?php
                     if(empty($jml_data)){
                         echo '<tr>';
-                        echo '  <td colspan="8" class="text-center">';
+                        echo '  <td colspan="7" class="text-center">';
                         echo '      <code class="text-danger">';
                         echo '          Tidak Ada Data Kontak Yang Dapat Ditampilkan';
                         echo '      </code>';
@@ -177,37 +176,30 @@
                             }
                             //Buka sumber
                             if(empty($data['sumber'])){
-                                $LabelSumber='<code class="text-grayish">None</code>';
+                                $LabelSumber='<small class="credit text-grayish">None</small>';
                             }else{
                                 $sumber=$data['sumber'];
-                                $LabelSumber='<code class="text-dark">'.$sumber.'</code>';
+                                $LabelSumber='<small class="credit text-dark">'.$sumber.'</small>';
                             }
                 ?>
                             <tr>
                                 <td align="center">
                                     <small class="credit">
-                                        <code class="text text-dark"><?php echo $no; ?></code>
+                                        <?php echo $no; ?>
                                     </small>
                                 </td>
                                 <td align="left">
                                     <small class="credit">
-                                        <code class="text text-dark"><?php echo $nama; ?></code>
+                                        <?php echo $nama; ?>
                                     </small>
                                 </td>
                                 <td align="left">
                                     <small class="credit">
-                                        <?php echo $EmailLabel; ?>
+                                        <?php echo $kontak; ?>
                                     </small>
                                 </td>
                                 <td align="left">
-                                    <small class="credit">
-                                        <code class="text text-dark"><?php echo $kontak; ?></code>
-                                    </small>
-                                </td>
-                                <td align="left">
-                                    <small class="credit">
-                                        <?php echo $LabelSumber; ?>
-                                    </small>
+                                    <?php echo $LabelSumber; ?>
                                 </td>
                                 <td align="center">
                                     <small class="credit">

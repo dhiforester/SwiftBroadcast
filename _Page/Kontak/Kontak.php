@@ -12,9 +12,33 @@
     </div>
     
     <div class="row">
-        <div class="col-md-12">
-            <div class="card rekap_kontak">
-                <div class="card-body" id="RekapKontak">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header text-center">
+                    <b class="card-title">Kontak Sudah Dihubungi</b>
+                </div>
+                <div class="card-body" id="RekapKontakBelumDihubungi">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header text-center">
+                    <b class="card-title">Kontak Didistribusikan</b>
+                </div>
+                <div class="card-body" id="RekapDistribusiKontak">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header text-center">
+                    <b class="card-title">Sumber Kontak</b>
+                </div>
+                <div class="card-body" id="RekapSumberKontak">
+                    
                 </div>
             </div>
         </div>

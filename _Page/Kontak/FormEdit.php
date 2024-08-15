@@ -42,14 +42,6 @@
     </div>
     <div class="row mb-3">
         <div class="col col-md-4">
-            <label for="email_edit">Email</label>
-        </div>
-        <div class="col-md-8">
-            <input type="email" name="email" id="email_edit" class="form-control" placeholder="email@domain.com" value="<?php echo $email; ?>">
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col col-md-4">
             <label for="kontak_edit">Kontak</label>
         </div>
         <div class="col-md-8">
