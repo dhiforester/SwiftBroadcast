@@ -105,6 +105,15 @@
             echo '  </ol>';
             echo '</nav>';
         }
+        if($_GET['Page']=="Barang"){
+            echo '<h1><a href=""><i class="bi bi-archive"></i> Produk</a></h1>';
+            echo '<nav>';
+            echo '  <ol class="breadcrumb">';
+            echo '      <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>';
+            echo '      <li class="breadcrumb-item active">Produk</li>';
+            echo '  </ol>';
+            echo '</nav>';
+        }
         if($_GET['Page']=="Transaksi"){
             if(empty($_GET['Sub'])){
                 echo '<h1><a href=""><i class="bi bi-cart-check"></i> Transaksi</a></h1>';
@@ -151,7 +160,7 @@
             }
         }
         if($_GET['Page']=="SettingGeneral"){
-            echo '<h1><i class="bi bi-gear"></i> Pengaturan Umum</h1>';
+            echo '<h1><a href=""><i class="bi bi-gear"></i> Pengaturan Umum</a></h1>';
             echo '<nav>';
             echo '  <ol class="breadcrumb">';
             echo '      <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>';

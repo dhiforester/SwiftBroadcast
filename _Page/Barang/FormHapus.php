@@ -32,6 +32,7 @@
             $berat=GetDetailData($Conn,'barang','id_barang',$id_barang,'berat');
             $harga_format = "Rp " . number_format($harga,0,',','.');
 ?>
+            <input type="hidden" name="id_barang" value="<?php echo $id_barang; ?>">
             <div class="row mb-3">
                 <div class="col col-md-6">Kode Barang</div>
                 <div class="col col-md-6">
@@ -44,28 +45,20 @@
                     <code class="text text-grayish"><?php echo $nama; ?></code>
                 </div>
             </div>
-            <div class="row mb-3">
-                <div class="col col-md-6">Kategori</div>
-                <div class="col col-md-6">
+            <div class="row mb-3 border-1 border-bottom">
+                <div class="col col-md-6 mb-3">Kategori</div>
+                <div class="col col-md-6 mb-3">
                     <code class="text text-grayish"><?php echo $kategori; ?></code>
                 </div>
             </div>
-            <div class="row mb-3">
-                <div class="col col-md-6">Harga</div>
-                <div class="col col-md-6">
-                    <code class="text text-grayish"><?php echo $harga_format; ?></code>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <img src="assets/img/delete.gif" alt="" width="90%">
                 </div>
             </div>
-            <div class="row mb-3">
-                <div class="col col-md-6">Stok/Satuan</div>
-                <div class="col col-md-6">
-                    <code class="text text-grayish"><?php echo "$stok $satuan"; ?></code>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col col-md-6">Berat (Kg)</div>
-                <div class="col col-md-6">
-                    <code class="text text-grayish"><?php echo "$berat Kg"; ?></code>
+            <div class="row border-1 border-top">
+                <div class="col-md-12 text-center">
+                    <small class="credit">Apakah anda yakin akan menghapus data ini?</small>
                 </div>
             </div>
 <?php 

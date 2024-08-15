@@ -27,6 +27,9 @@
         if($Page=="DistribusiKontak"){
             echo '<script type="text/javascript" src="_Page/DistribusiKontak/DistribusiKontak.js"></script>';
         }
+        if($Page=="Barang"){
+            echo '<script type="text/javascript" src="_Page/Barang/Barang.js"></script>';
+        }
         if($Page=="Transaksi"){
             echo '<script type="text/javascript" src="_Page/Transaksi/Transaksi.js"></script>';
         }

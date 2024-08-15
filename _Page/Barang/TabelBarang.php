@@ -1,8 +1,8 @@
 <?php
     //koneksi dan session
-    ini_set("display_errors","off");
     include "../../_Config/Connection.php";
-    include "../../_Config/Session.php";
+    include "../../_Config/GlobalFunction.php";
+    date_default_timezone_set("Asia/Jakarta");
     //Keyword_by
     if(!empty($_POST['keyword_by'])){
         $keyword_by=$_POST['keyword_by'];
@@ -24,14 +24,8 @@
     //ShortBy
     if(!empty($_POST['ShortBy'])){
         $ShortBy=$_POST['ShortBy'];
-        if($ShortBy=="ASC"){
-            $NextShort="DESC";
-        }else{
-            $NextShort="ASC";
-        }
     }else{
         $ShortBy="DESC";
-        $NextShort="ASC";
     }
     //OrderBy
     if(!empty($_POST['OrderBy'])){
@@ -51,7 +45,7 @@
         if(empty($keyword)){
             $jml_data = mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM barang"));
         }else{
-            $jml_data = mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM barang WHERE kode_barang like '%$keyword%' OR nama_barang like '%$keyword%' OR kategori_barang like '%$keyword%' OR satuan_barang like '%$keyword%'"));
+            $jml_data = mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM barang WHERE kode like '%$keyword%' OR nama like '%$keyword%' OR kategori like '%$keyword%' OR satuan like '%$keyword%'"));
         }
     }else{
         if(empty($keyword)){
@@ -60,14 +54,25 @@
             $jml_data = mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM barang WHERE $keyword_by like '%$keyword%'"));
         }
     }
-    $JmlKategori = mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM barang_kategori_harga"));
-    $jmlKolom=$JmlKategori+6;
-    $jmlKolomHarga=$JmlKategori+1;
+    //Mengatur Halaman
+    $JmlHalaman = ceil($jml_data/$batas); 
+    $prev=$page-1;
+    $next=$page+1;
+    if($next>$JmlHalaman){
+        $next=$page;
+    }else{
+        $next=$page+1;
+    }
+    if($prev<"1"){
+        $prev="1";
+    }else{
+        $prev=$page-1;
+    }
 ?>
 <script>
     //ketika klik next
     $('#NextPage').click(function() {
-        var valueNext=$('#NextPage').val();
+        var page=$('#NextPage').val();
         var batas="<?php echo "$batas"; ?>";
         var keyword="<?php echo "$keyword"; ?>";
         var keyword_by="<?php echo "$keyword_by"; ?>";
@@ -76,16 +81,16 @@
         $.ajax({
             url     : "_Page/Barang/TabelBarang.php",
             method  : "POST",
-            data 	:  { page: valueNext, batas: batas, keyword: keyword, keyword_by: keyword_by, OrderBy: OrderBy, ShortBy: ShortBy },
+            data 	:  { page: page, batas: batas, keyword: keyword, keyword_by: keyword_by, OrderBy: OrderBy, ShortBy: ShortBy },
             success: function (data) {
                 $('#MenampilkanTabelBarang').html(data);
-
+                $('#page').val(page);
             }
         })
     });
     //Ketika klik Previous
     $('#PrevPage').click(function() {
-        var ValuePrev = $('#PrevPage').val();
+        var page = $('#PrevPage').val();
         var batas="<?php echo "$batas"; ?>";
         var keyword="<?php echo "$keyword"; ?>";
         var keyword_by="<?php echo "$keyword_by"; ?>";
@@ -94,258 +99,151 @@
         $.ajax({
             url     : "_Page/Barang/TabelBarang.php",
             method  : "POST",
-            data 	:  { page: ValuePrev,batas: batas, keyword: keyword, keyword_by: keyword_by, OrderBy: OrderBy, ShortBy: ShortBy },
+            data 	:  { page: page, batas: batas, keyword: keyword, keyword_by: keyword_by, OrderBy: OrderBy, ShortBy: ShortBy },
             success : function (data) {
                 $('#MenampilkanTabelBarang').html(data);
+                $('#page').val(page);
             }
         })
     });
-    <?php 
-        $JmlHalaman =ceil($jml_data/$batas); 
-        $a=1;
-        $b=$JmlHalaman;
-        for ( $i =$a; $i<=$b; $i++ ){
-    ?>
-        //ketika klik page number
-        $('#PageNumber<?php echo $i;?>').click(function() {
-            var PageNumber = $('#PageNumber<?php echo $i;?>').val();
-            var batas="<?php echo "$batas"; ?>";
-            var keyword="<?php echo "$keyword"; ?>";
-            var keyword_by="<?php echo "$keyword_by"; ?>";
-            var OrderBy="<?php echo "$OrderBy"; ?>";
-            var ShortBy="<?php echo "$ShortBy"; ?>";
-            $.ajax({
-                url     : "_Page/Barang/TabelBarang.php",
-                method  : "POST",
-                data 	:  { page: PageNumber, batas: batas, keyword: keyword, keyword_by: keyword_by, OrderBy: OrderBy, ShortBy: ShortBy },
-                success: function (data) {
-                    $('#MenampilkanTabelBarang').html(data);
-                }
-            })
-        });
-    <?php } ?>
 </script>
-<div class="card-body">
-    <div class="row mt-4">
-        <div class="col-md-12 text-center">
-            <div class="table-responsive">
-                <table class="table table-hover table-bordered align-items-center mb-0">
-                    <thead class="">
-                        <tr>
-                            <th class="text-center" valign="middle" rowspan="2">
-                                <b>No</b>
-                            </th>
-                            <th class="text-center" valign="middle" rowspan="2">
-                                <b>Barang</b>
-                            </th>
-                            <th class="text-center" valign="middle" rowspan="2">
-                                <b>Kategori</b>
-                            </th>
-                            <th class="text-center" valign="middle" rowspan="2">
-                                <b>Stok</b>
-                            </th>
-                            <th class="text-center" valign="middle" colspan="<?php echo $jmlKolomHarga;?>">
-                                <b>Harga</b>
-                            </th>
-                            <th class="text-center" valign="middle" rowspan="2">
-                                <b>Option</b>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th class="text-center">
-                                <b>Beli</b>
-                            </th>
-                            <?php
-                                if(!empty($jmlKolom)){
-                                    $QryKategori = mysqli_query($Conn, "SELECT*FROM barang_kategori_harga");
-                                    while ($DataKategori = mysqli_fetch_array($QryKategori)) {
-                                        $KategoriHarga= $DataKategori['kategori_harga'];
-                                        echo '<th class="text-center">';
-                                        echo '  <b>'.$KategoriHarga.'</b>';
-                                        echo '</th>';
-                                    }
-                                }
-                            ?>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                            if(empty($jml_data)){
-                                echo '<tr>';
-                                echo '  <td colspan="'.$jmlKolom.'">';
-                                echo '      <span class="text-danger">Tidak Ada Data Barang</span>';
-                                echo '  </td>';
-                                echo '</tr>';
+<div class="row mb-3">
+    <div class="table table-responsive">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <td align="center"><b>No</b></td>
+                    <td align="left"><b>Kode</b></td>
+                    <td align="left"><b>Nama/Merek</b></td>
+                    <td align="left"><b>Kategori</b></td>
+                    <td align="left"><b>Harga</b></td>
+                    <td align="left"><b>Stok</b></td>
+                    <td align="left"><b>Berat (Kg)</b></td>
+                    <td align="center"><b>Opsi</b></td>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    if(empty($jml_data)){
+                        echo '<tr>';
+                        echo '  <td colspan="8" class="text-center">';
+                        echo '      <code class="text-danger">';
+                        echo '          Tidak Ada Data Barang/Produk Yang Dapat Ditampilkan';
+                        echo '      </code>';
+                        echo '  </td>';
+                        echo '</tr>';
+                    }else{
+                        $no = 1+$posisi;
+                        //KONDISI PENGATURAN MASING FILTER
+                        if(empty($keyword_by)){
+                            if(empty($keyword)){
+                                $query = mysqli_query($Conn, "SELECT*FROM barang ORDER BY $OrderBy $ShortBy LIMIT $posisi, $batas");
                             }else{
-                                $no = 1+$posisi;
-                                //KONDISI PENGATURAN MASING FILTER
-                                if(empty($keyword_by)){
-                                    if(empty($keyword)){
-                                        $query = mysqli_query($Conn, "SELECT*FROM barang ORDER BY $OrderBy $ShortBy LIMIT $posisi, $batas");
-                                    }else{
-                                        $query = mysqli_query($Conn, "SELECT*FROM barang WHERE kode_barang like '%$keyword%' OR nama_barang like '%$keyword%' OR kategori_barang like '%$keyword%' OR satuan_barang like '%$keyword%' ORDER BY $OrderBy $ShortBy LIMIT $posisi, $batas");
-                                    }
-                                }else{
-                                    if(empty($keyword)){
-                                        $query = mysqli_query($Conn, "SELECT*FROM barang ORDER BY $OrderBy $ShortBy LIMIT $posisi, $batas");
-                                    }else{
-                                        $query = mysqli_query($Conn, "SELECT*FROM barang WHERE $keyword_by like '%$keyword%' ORDER BY $OrderBy $ShortBy LIMIT $posisi, $batas");
-                                    }
-                                }
-                                while ($data = mysqli_fetch_array($query)) {
-                                    $id_barang= $data['id_barang'];
-                                    $kode_barang= $data['kode_barang'];
-                                    $nama_barang= $data['nama_barang'];
-                                    $kategori_barang= $data['kategori_barang'];
-                                    $satuan_barang= $data['satuan_barang'];
-                                    $konversi= $data['konversi'];
-                                    $harga_beli= $data['harga_beli'];
-                                    $harga_beli_rp = "" . number_format($harga_beli,0,',','.');
-                                    $stok_barang= $data['stok_barang'];
-                                    $stok_barang_rp = "" . number_format($stok_barang,0,',','.');
-                                    //Menghitung jumlah transaksi
-                                    $JumlahTrasaksi = mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM transaksi_rincian WHERE id_barang='$id_barang'"));
-                                    if(empty($JumlahTrasaksi)){
-                                        $LabelTransaksi='<span class="text-danger">'.$JumlahTrasaksi.'</span>';
-                                    }else{
-                                        $LabelTransaksi='<span class="text-success">'.$JumlahTrasaksi.'</span>';
-                                    }
-                            ?>
-                                <tr>
-                                    <td class="text-center text-xs">
-                                        <?php 
-                                            echo "<small >$no</small>";
-                                        ?>
-                                    </td>
-                                    <td class="text-left" align="left">
-                                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#ModalDetailBarang" data-id="<?php echo "$id_barang,$keyword,$batas,$ShortBy,$OrderBy,$page,$keyword_by"; ?>" title="Lihat Detail Barang Untuk <?php echo "$nama_barang"; ?>">
-                                            <?php 
-                                                echo "<b><i class='bi bi-box'></i> $nama_barang</b>";
-                                            ?>
-                                        </a><br>
-                                        <?php 
-                                            echo '<small class="credits"><i class="bi bi-qr-code"></i> '.$kode_barang.'</small>';
-                                        ?>
-                                    </td>
-                                    <td class="text-left" align="left">
-                                        <?php 
-                                            echo "<small><i class='bi bi-tag'></i>$kategori_barang</small><br>";
-                                            echo "<small><i class='bi bi-cart-plus'></i>$LabelTransaksi</small>";
-                                        ?>
-                                    </td>
-                                    <td class="text-left" align="left">
-                                        <?php 
-                                            echo "<small>$stok_barang_rp</small><br>";
-                                            echo "<small>$satuan_barang</small>";
-                                        ?>
-                                    </td>
-                                    <td class="text-right" align="right">
-                                        <?php 
-                                            echo "<small>$harga_beli_rp</small><br>";
-                                        ?>
-                                    </td>
-                                    <?php
-                                        if(!empty($jmlKolom)){
-                                            $QryKategori = mysqli_query($Conn, "SELECT*FROM barang_kategori_harga");
-                                            while ($DataKategori = mysqli_fetch_array($QryKategori)) {
-                                                $KategoriHarga= $DataKategori['kategori_harga'];
-                                                //Buka data multi harga
-                                                $QryHargaMulti = mysqli_query($Conn,"SELECT * FROM barang_harga WHERE id_barang='$id_barang' AND id_barang_satuan='0' AND kategori_harga='$KategoriHarga'")or die(mysqli_error($Conn));
-                                                $DataHargaMulti= mysqli_fetch_array($QryHargaMulti);
-                                                $HargaMulti= $DataHargaMulti['harga'];
-                                                $HargaMultiRp= "" . number_format($HargaMulti,0,',','.');
-                                                //mencari laba
-                                                $Laba=$HargaMulti-$harga_beli;
-                                                $Pelaba=($Laba/$harga_beli)*100;
-                                                $Pelaba=round($Pelaba);
-                                                if($Pelaba==0){
-                                                    $LabelLaba='<span class="text-dark">('.$Pelaba.'%)</span>';
-                                                }else{
-                                                    if($Pelaba<0){
-                                                        $LabelLaba='<span class="text-danger">('.$Pelaba.'%)</span>';
-                                                    }else{
-                                                        $LabelLaba='<span class="text-success">('.$Pelaba.'%)</span>';
-                                                    }
-                                                }
-                                                echo '<td class="text-right" align="right">';
-                                                echo '  '.$HargaMultiRp.'<br>';
-                                                echo '  '.$LabelLaba.'';
-                                                echo '</td>';
-                                            }
-                                        }
-                                    ?>
-                                    <td align="center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#ModalEditBarang" data-id="<?php echo "$id_barang,$keyword,$batas,$ShortBy,$OrderBy,$page,$keyword_by"; ?>" title="Edit Data Barang">
-                                                <i class="bi bi-pencil-square"></i>
-                                            </button>  
-                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#ModalDeleteBarang" data-id="<?php echo "$id_barang,$keyword,$batas,$ShortBy,$OrderBy,$page,$keyword_by"; ?>" title="Hapus Data Barang">
-                                                <i class="bi bi-x"></i>
-                                            </button>  
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php $no++; }} ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                                $query = mysqli_query($Conn, "SELECT*FROM barang WHERE kode like '%$keyword%' OR nama like '%$keyword%' OR kategori like '%$keyword%' OR satuan like '%$keyword%' ORDER BY $OrderBy $ShortBy LIMIT $posisi, $batas");
+                            }
+                        }else{
+                            if(empty($keyword)){
+                                $query = mysqli_query($Conn, "SELECT*FROM barang ORDER BY $OrderBy $ShortBy LIMIT $posisi, $batas");
+                            }else{
+                                $query = mysqli_query($Conn, "SELECT*FROM barang WHERE $keyword_by like '%$keyword%' ORDER BY $OrderBy $ShortBy LIMIT $posisi, $batas");
+                            }
+                        }
+                        while ($data = mysqli_fetch_array($query)) {
+                            $id_barang= $data['id_barang'];
+                            $kode= $data['kode'];
+                            $nama= $data['nama'];
+                            $kategori= $data['kategori'];
+                            $harga= $data['harga'];
+                            $stok= $data['stok'];
+                            $satuan= $data['satuan'];
+                            $berat= $data['berat'];
+                            $HargaBarang = "Rp " . number_format($harga,0,',','.');
+                ?>
+                            <tr>
+                                <td align="center">
+                                    <small class="credit">
+                                        <?php echo $no; ?>
+                                    </small>
+                                </td>
+                                <td align="left">
+                                    <small class="credit">
+                                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#ModalDetail" data-id="<?php echo "$id_barang"; ?>" class="">
+                                            <?php echo $kode; ?>
+                                        </a>
+                                    </small>
+                                </td>
+                                <td align="left">
+                                    <small class="credit">
+                                        <code class="text-dark"><?php echo $nama; ?></code>
+                                    </small>
+                                </td>
+                                <td align="left">
+                                    <small class="credit">
+                                        <?php echo $kategori; ?>
+                                    </small>
+                                </td>
+                                <td align="left">
+                                    <small class="credit">
+                                        <?php echo $HargaBarang; ?>
+                                    </small>
+                                </td>
+                                <td align="left">
+                                    <small class="credit">
+                                        <?php echo "$stok $satuan"; ?>
+                                    </small>
+                                </td>
+                                <td align="left">
+                                    <small class="credit">
+                                        <?php echo "$berat Kg"; ?>
+                                    </small>
+                                </td>
+                                <td align="center">
+                                    <a class="btn btn-sm btn-outline-dark btn-rounded" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-three-dots"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow" style="">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Option</h6>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ModalDetail" data-id="<?php echo "$id_barang"; ?>">
+                                                <i class="bi bi-info-circle"></i> Detail
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ModalEdit" data-id="<?php echo "$id_barang"; ?>">
+                                                <i class="bi bi-pencil"></i> Edit
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ModalHapus" data-id="<?php echo "$id_barang"; ?>">
+                                                <i class="bi bi-x"></i> Hapus
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                <?php
+                            $no++; 
+                        }
+                    }
+                ?>
+            </tbody>
+        </table>
     </div>
 </div>
-<div class="card-footer text-center">
-    <div class="btn-group shadow-0" role="group" aria-label="Basic example">
-        <?php
-            //Mengatur Halaman
-            $JmlHalaman = ceil($jml_data/$batas); 
-            $JmlHalaman_real = ceil($jml_data/$batas); 
-            $prev=$page-1;
-            $next=$page+1;
-            if($next>$JmlHalaman){
-                $next=$page;
-            }else{
-                $next=$page+1;
-            }
-            if($prev<"1"){
-                $prev="1";
-            }else{
-                $prev=$page-1;
-            }
-        ?>
-        <button class="btn btn-sm btn-outline-info" id="PrevPage" value="<?php echo $prev;?>">
-            <span aria-hidden="true">«</span>
-        </button>
-        <?php 
-            //Navigasi nomor
-            if($JmlHalaman>3){
-                if($page>=2){
-                    $a=$page-1;
-                    $b=$page+1;
-                    if($JmlHalaman<=$b){
-                        $a=$page-1;
-                        $b=$JmlHalaman;
-                    }
-                }else{
-                    $a=1;
-                    $b=$page+1;
-                    if($JmlHalaman<=$b){
-                        $a=1;
-                        $b=$JmlHalaman;
-                    }
-                }
-            }else{
-                $a=1;
-                $b=$JmlHalaman;
-            }
-            for ( $i =$a; $i<=$b; $i++ ){
-                if($page=="$i"){
-                    echo '<button class="btn btn-sm btn-info" id="PageNumber'.$i.'" value="'.$i.'"><span aria-hidden="true">'.$i.'</span></button>';
-                }else{
-                    echo '<button class="btn btn-sm btn-outline-info" id="PageNumber'.$i.'" value="'.$i.'"><span aria-hidden="true">'.$i.'</span></button>';
-                }
-            }
-        ?>
-        <button class="btn btn-sm btn-outline-info" id="NextPage" value="<?php echo $next;?>">
-            <span aria-hidden="true">»</span>
-        </button>
+<div class="row">
+    <div class="col-md-12 text-center">
+        <div class="btn-group shadow-0" role="group" aria-label="Basic example">
+            <button class="btn btn-sm btn-info" id="PrevPage" value="<?php echo $prev;?>">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-info">
+                <?php echo "$page of $JmlHalaman"; ?>
+            </button>
+            <button class="btn btn-sm btn-info" id="NextPage" value="<?php echo $next;?>">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
     </div>
 </div>

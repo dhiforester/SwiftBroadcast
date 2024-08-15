@@ -4,8 +4,8 @@
             <?php
                 echo '<div class="alert alert-info alert-dismissible fade show" role="alert">';
                 echo '  Berikut ini adalah halaman kelola data barang.';
-                echo '  Anda bisa menambahkan data barang baru, kelola stok, kelola informasi satuan, multi harga dan multi stok.';
-                echo '  Anda juga bisa memanfaatkan fitur database untuk melakukan import data dari excel.';
+                echo '  Anda bisa menambahkan data barang, kelola stok, harga dan berat masing-masing item.';
+                echo '  Data barang ini digunakan sebagai dasar dalam transaksi.';
                 echo '  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
                 echo '</div>';
             ?>
@@ -15,52 +15,23 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <form action="javascript:void(0);" id="ProsesBatas">
-                        <div class="row">
-                            <div class="col-md-1 mt-2">
-                                <select name="batas" id="batas" class="form-control">
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                    <option value="250">250</option>
-                                    <option value="500">500</option>
-                                </select>
-                                <small>Data</small>
-                            </div>
-                            <div class="col-md-3 mt-2">
-                                <input type="text" name="keyword" id="keyword" class="form-control">
-                                <small>Kata Kunci</small>
-                            </div>
-                            <div class="col-md-1 mt-2">
-                                <button type="submit" class="btn btn-md btn-dark btn-block btn-rounded" title="Cari Barang">
-                                    <i class="bi bi-search"></i>
-                                </button>
-                            </div>
-                            <div class="col-md-1 mt-2">
-                                <button type="button" class="btn btn-md btn-info btn-block btn-rounded" data-bs-toggle="modal" data-bs-target="#ModalFilterBarang" title="Filter Data barang">
-                                    <i class="bi bi-funnel"></i>
-                                </button>
-                            </div>
-                            <div class="col-md-2 mt-2">
-                                <button type="button" class="btn btn-md btn-warning btn-block btn-rounded" data-bs-toggle="modal" data-bs-target="#ModalDatabaseBarang" title="Export/Import Data Barang">
-                                    <i class="bi bi-server"></i> Database
-                                </button>
-                            </div>
-                            <div class="col-md-2 mt-2">
-                                <button type="button" class="btn btn-md btn-success btn-block btn-rounded" data-bs-toggle="modal" data-bs-target="#ModalBarangHarga" title="Kategori Harga">
-                                    <i class="bi bi-cash-coin"></i> Harga
-                                </button>
-                            </div>
-                            <div class="col-md-2 text-center mt-2">
-                                <button type="button" class="btn btn-md btn-primary btn-block btn-rounded" data-bs-toggle="modal" data-bs-target="#ModalTambahBarang" title="Tambah Data Barang">
-                                    <i class="bi bi-plus-lg"></i> Tambah
-                                </button>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+
                         </div>
-                    </form>
+                        <div class="col-md-2 mb-3">
+                            <button type="button" class="btn btn-md btn-outline-dark btn-block btn-rounded" data-bs-toggle="modal" data-bs-target="#ModalFilter" title="Filter Data Barang">
+                                <i class="bi bi-funnel"></i> Filter
+                            </button>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <button type="button" class="btn btn-md btn-primary btn-block btn-rounded" data-bs-toggle="modal" data-bs-target="#ModalTambahBarang" title="Tambah Data Barang">
+                                <i class="bi bi-plus-lg"></i> Tambah
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div id="MenampilkanTabelBarang">
+                <div class="card-body" id="MenampilkanTabelBarang">
 
                 </div>
             </div>

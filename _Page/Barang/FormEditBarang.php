@@ -2,99 +2,136 @@
     //Koneksi
     date_default_timezone_set('Asia/Jakarta');
     include "../../_Config/Connection.php";
+    include "../../_Config/GlobalFunction.php";
+    include "../../_Config/SettingGeneral.php";
     include "../../_Config/Session.php";
-    //Tangkap id_mitra
-    if(empty($_POST['id_barang'])){
-        echo '  <div class="row">';
-        echo '      <div class="col-md-6 mb-3">';
-        echo '          ID Supplier Tidak Boleh Kosong!.';
-        echo '      </div>';
+    if(empty($SessionIdAkses)){
+        echo '<div class="row">';
+        echo '  <div class="col-md-12 mb-3 text-center">';
+        echo '      <small class="text-danger">Sesi Akses Sudah Berakhir, Silahkan Login Ulang</small>';
         echo '  </div>';
+        echo '</div>';
     }else{
-        $id_barang=$_POST['id_barang'];
-        //Buka data supplier
-        $QryBarang = mysqli_query($Conn,"SELECT * FROM barang WHERE id_barang='$id_barang'")or die(mysqli_error($Conn));
-        $DataBarang = mysqli_fetch_array($QryBarang);
-        $id_barang= $DataBarang['id_barang'];
-        $kode_barang= $DataBarang['kode_barang'];
-        $nama_barang= $DataBarang['nama_barang'];
-        $kategori_barang= $DataBarang['kategori_barang'];
-        $satuan_barang= $DataBarang['satuan_barang'];
-        $konversi= $DataBarang['konversi'];
-        $harga_beli= $DataBarang['harga_beli'];
-        $stok_barang= $DataBarang['stok_barang'];
-        //Hitung jumlah kategori harga
-        $JumlahKategoriHarga=mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM barang_harga WHERE id_barang='$id_barang'"));
+        //Tangkap id_barang
+        if(empty($_POST['id_barang'])){
+            echo '<div class="row">';
+            echo '  <div class="col-md-12 mb-3 text-center">';
+            echo '      <small class="text-danger">ID Barang Tidak Boleh Kosong!</small>';
+            echo '  </div>';
+            echo '</div>';
+        }else{
+            $id_barang=$_POST['id_barang'];
+            $id_barang=validateAndSanitizeInput($id_barang);
+            //Buka Informasi
+            $kode=GetDetailData($Conn,'barang','id_barang',$id_barang,'kode');
+            $nama=GetDetailData($Conn,'barang','id_barang',$id_barang,'nama');
+            $kategori=GetDetailData($Conn,'barang','id_barang',$id_barang,'kategori');
+            $stok=GetDetailData($Conn,'barang','id_barang',$id_barang,'stok');
+            $harga=GetDetailData($Conn,'barang','id_barang',$id_barang,'harga');
+            $satuan=GetDetailData($Conn,'barang','id_barang',$id_barang,'satuan');
+            $berat=GetDetailData($Conn,'barang','id_barang',$id_barang,'berat');
+            $harga_format = "" . number_format($harga,0,',','.');
+            $stok_format = "" . number_format($stok,0,',','.');
 ?>
-    <input type="hidden" name="id_barang" id="id_barang" value="<?php echo $id_barang;?>">
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label for="kode_barang">Kode Barang</label>
-            <input type="text" name="kode_barang" id="kode_barang" class="form-control" value="<?php echo "$kode_barang"; ?>">
-        </div>
-        <div class="col-md-6 mb-3">
-            <label for="nama_barang">Nama Barang</label>
-            <input type="text" name="nama_barang" id="nama_barang" class="form-control" value="<?php echo "$nama_barang"; ?>">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label for="kategori_barang">Kategori</label>
-            <input type="text" name="kategori_barang" id="kategori_barang" list="Listkategori" class="form-control" value="<?php echo "$kategori_barang"; ?>">
-            <datalist id="Listkategori">
-                <?php
-                    $QryKategori = mysqli_query($Conn, "SELECT DISTINCT kategori_barang FROM barang ORDER BY kategori_barang ASC");
-                    while ($DataKategori = mysqli_fetch_array($QryKategori)) {
-                        $kategori_barang_list= $DataKategori['kategori_barang'];
-                        echo '<option value="'.$kategori_barang_list.'">';
+            <input type="hidden" name="id_barang" value="<?php echo $id_barang; ?>">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="kode_edit">Kode Barang</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" name="kode" id="kode_edit" class="form-control" value="<?php echo $kode; ?>">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="nama_edit">Nama Barang</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" name="nama" id="nama_edit" class="form-control" value="<?php echo $nama; ?>">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="kategori_edit">Kategori</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" name="kategori" id="kategori_edit" list="ListKategori" class="form-control" value="<?php echo $kategori; ?>">
+                    <datalist id="ListKategori">
+                        <?php
+                            $query = mysqli_query($Conn, "SELECT DISTINCT kategori FROM barang ORDER BY kategori ASC");
+                            while ($data = mysqli_fetch_array($query)) {
+                                $kategori= $data['kategori'];
+                                echo '  <option value="'.$kategori.'">';
+                            }
+                        ?>
+                    </datalist>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="harga_edit">Harga (Rp)</label>
+                </div>
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-text">Rp</span>
+                        <input type="text" name="harga" id="harga_edit" class="form-control format_uang" value="<?php echo $harga_format; ?>">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="stok_edit">Stok</label>
+                </div>
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <input type="text" name="stok" id="stok_edit" class="form-control format_uang" value="<?php echo $stok_format; ?>">
+                        <input type="text" name="satuan" id="satuan" list="ListSatuan" class="form-control" placeholder="Satuan" value="<?php echo $satuan; ?>">
+                        <datalist id="ListSatuan">
+                            <?php
+                                $query = mysqli_query($Conn, "SELECT DISTINCT satuan FROM barang ORDER BY satuan ASC");
+                                while ($data = mysqli_fetch_array($query)) {
+                                    $satuan= $data['satuan'];
+                                    echo '  <option value="'.$satuan.'">';
+                                }
+                            ?>
+                        </datalist>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="berat_edit">Berat (Kg)</label>
+                </div>
+                <div class="col-md-8">
+                    <div class="input-group mb-3">
+                        <input type="text" name="berat" id="berat_edit" class="form-control" placeholder="00.00" value="<?php echo $berat; ?>">
+                        <span class="input-group-text">Kg</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4"></div>
+                <div class="col-md-8">
+                    <small class="credit">Pastikan data barang yang anda input sudah sesuai</small>
+                </div>
+            </div>
+            <script>
+                $( '.format_uang' ).mask('000.000.000.000', {reverse: true});
+                $('#berat_edit').on('input', function() {
+                    // Ambil nilai dari input
+                    var value = $(this).val();
+                    // Gunakan regex untuk membatasi input hanya pada angka dan desimal dengan 2 angka setelah koma
+                    var valid = value.match(/^\d+(\.\d{0,2})?$/);
+                    if (valid) {
+                        // Jika input valid, biarkan nilai tetap
+                        $(this).val(value);
+                    } else {
+                        // Jika input tidak valid, hapus karakter terakhir
+                        $(this).val(value.slice(0, -1));
                     }
-                ?>
-            </datalist>
-        </div>
-        <div class="col-md-6 mb-3">
-            <label for="satuan_barang">Satuan</label>
-            <input type="text" name="satuan_barang" id="satuan_barang" class="form-control" value="<?php echo "$satuan_barang"; ?>">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 mb-3">
-            <label for="konversi">Konversi</label>
-            <input type="number" min="1" name="konversi" id="konversi" class="form-control" required value="<?php echo "$konversi"; ?>">
-        </div>
-        <div class="col-md-3 mb-3">
-            <label for="stok_barang">Stok</label>
-            <input type="number" min="0" name="stok_barang" id="stok_barang" class="form-control" value="<?php echo "$stok_barang"; ?>">
-        </div>
-        <div class="col-md-6 mb-3">
-            <label for="harga_beli">Harga Beli</label>
-            <input type="number" min="0" name="harga_beli" id="harga_beli" class="form-control" value="<?php echo "$harga_beli"; ?>">
-        </div>
-    </div>
-    <div class="row">
-        <?php
-            $JmlKategori = mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM barang_kategori_harga"));
-            if(!empty($JmlKategori)){
-                $no=1;
-                $QryKategoriHarga = mysqli_query($Conn, "SELECT*FROM barang_kategori_harga");
-                while ($DataKategoriHarga = mysqli_fetch_array($QryKategoriHarga)) {
-                    $kategori_harga= $DataKategoriHarga['kategori_harga'];
-                    //Mencari nilai harga
-                    $QryHarga = mysqli_query($Conn,"SELECT * FROM barang_harga WHERE id_barang='$id_barang' AND kategori_harga='$kategori_harga'")or die(mysqli_error($Conn));
-                    $DataHarga = mysqli_fetch_array($QryHarga);
-                    $harga_multi= $DataHarga['harga'];
-                    echo '<div class="col-md-6 mb-2">';
-                    echo '  <label for="Harga'.$no.'"><small>'.$kategori_harga.'</small></label>';
-                    echo '  <input type="number" min="0" name="Harga'.$no.'" id="Harga'.$no.'" class="form-control" value="'.$harga_multi.'">';
-                    echo '';
-                    echo '</div>';
-                    $no++;
-                }
-            }
-        ?>
-    </div>
-    <div class="row">
-        <div class="col-md-12" id="NotifikasiEditBarang">
-            <span class="text-primary">Pastikan bahwa informasi barang yang anda masukan sudah benar</span>
-        </div>
-    </div>
-<?php } ?>
+                });
+            </script>
+<?php 
+        } 
+    } 
+?>

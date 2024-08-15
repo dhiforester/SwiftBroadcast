@@ -75,6 +75,15 @@
             )
         </script>
     <?php } ?>
+    <?php if($NotifikasiSwal=="Simpan Setting General Berhasil"){ ?>
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                'Simpan Pengaturan Berhasil!',
+                'success'
+            )
+        </script>
+    <?php } ?>
 <?php 
     unset($_SESSION['NotifikasiSwal']);
     }

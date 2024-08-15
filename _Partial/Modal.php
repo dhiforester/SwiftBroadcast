@@ -28,6 +28,9 @@
         if($Page=="DistribusiKontak"){
             include "_Page/DistribusiKontak/ModalDistribusiKontak.php";
         }
+        if($Page=="Barang"){
+            include "_Page/Barang/ModalBarang.php";
+        }
         if($Page=="Transaksi"){
             include "_Page/Transaksi/ModalTransaksi.php";
         }
