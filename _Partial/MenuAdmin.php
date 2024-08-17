@@ -42,6 +42,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link <?php if($PageMenu!=="Mitra"){echo "collapsed";} ?>" href="index.php?Page=Mitra">
+                <i class="bi bi-building"></i>
+                <span>Mitra</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link <?php if($PageMenu!=="Kontak"){echo "collapsed";} ?>" href="index.php?Page=Kontak">
                 <i class="bi bi-telephone"></i>
                 <span>Kontak</span>

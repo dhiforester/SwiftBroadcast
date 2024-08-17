@@ -22,6 +22,9 @@
         if($Page=="Anggota"){
             include "_Page/Anggota/ModalAnggota.php";
         }
+        if($Page=="Mitra"){
+            include "_Page/Mitra/ModalMitra.php";
+        }
         if($Page=="Kontak"){
             include "_Page/Kontak/ModalKontak.php";
         }

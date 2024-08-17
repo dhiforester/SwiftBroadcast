@@ -87,6 +87,15 @@
             echo '  </ol>';
             echo '</nav>';
         }
+        if($_GET['Page']=="Mitra"){
+            echo '<h1><a href=""><i class="bi bi-building"></i> Mitra</a></h1>';
+            echo '<nav>';
+            echo '  <ol class="breadcrumb">';
+            echo '      <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>';
+            echo '      <li class="breadcrumb-item active">Mitra</li>';
+            echo '  </ol>';
+            echo '</nav>';
+        }
         if($_GET['Page']=="Kontak"){
             echo '<h1><a href=""><i class="bi bi-telephone"></i> Kontak</a></h1>';
             echo '<nav>';
