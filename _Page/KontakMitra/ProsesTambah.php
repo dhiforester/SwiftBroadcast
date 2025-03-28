@@ -25,13 +25,6 @@
                 }else{
                     $email=$_POST['email'];
                 }
-                if(empty($_POST['id_mitra'])){
-                    $id_mitra="0";
-                    $sumber="";
-                }else{
-                    $id_mitra=$_POST['id_mitra'];
-                    $sumber=GetDetailData($Conn,'mitra','id_mitra',$id_mitra,'nama');
-                }
                 if(empty($_POST['sudah_dihubungi'])){
                     $sudah_dihubungi="0";
                 }else{
@@ -41,7 +34,7 @@
                 $nama=validateAndSanitizeInput($nama);
                 $kontak=validateAndSanitizeInput($kontak);
                 $email=validateAndSanitizeInput($email);
-                $sumber=validateAndSanitizeInput($sumber);
+                $sumber=GetDetailData($Conn,'mitra','id_mitra',$SessionIdAkses,'nama');;
                 $sudah_dihubungi=validateAndSanitizeInput($sudah_dihubungi);
                 //Validasi Duplikat
                 $ValidasiKontakDuplikat=mysqli_num_rows(mysqli_query($Conn, "SELECT*FROM kontak WHERE kontak='$kontak'"));
@@ -63,7 +56,7 @@
                             sudah_dihubungi
                         ) VALUES (
                             '0',
-                            '$id_mitra',
+                            '$SessionIdAkses',
                             '$now',
                             '$nama',
                             '$email',

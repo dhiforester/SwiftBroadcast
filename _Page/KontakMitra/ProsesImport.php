@@ -46,9 +46,13 @@
                         $kontak=$sheetData[$i]['1'];
                     }
                     $datetime=date('Y-m-d H:i:s');
+                    $tanggal_upload=date('Y-m-d');
+                    $jam_upload=date('H:i:s');
+                    $datetime_upload=date('Y-m-d H:i:s');
                     //Bersihkkan Variabel
                     $nama=validateAndSanitizeInput($nama);
                     $kontak=validateAndSanitizeInput($kontak);
+                    $sumber=GetDetailData($Conn,'mitra','id_mitra',$SessionIdAkses,'nama');
                     //Validasi Jumlah Karakter
                     if(strlen($kontak)>20){
                         $ValidatorProses="Kontak Tidak Boleh Lebih Dari 20 Karakter";
@@ -72,12 +76,12 @@
                                     sudah_dihubungi
                                 ) VALUES (
                                     '0',
-                                    Null,
+                                    '$SessionIdAkses',
                                     '$datetime',
                                     '$nama',
                                     '',
                                     '$kontak',
-                                    '',
+                                    '$sumber',
                                     '0'
                                 )";
                                 $Input=mysqli_query($Conn, $Entry);
@@ -101,12 +105,36 @@
                     echo '  <td align="center"><small class="credit"><code class="text-dark">'.$number.'</code></small></td>';
                     echo '  <td align="left"><small class="credit"><code class="text-dark">'.$nama.'</code></small></td>';
                     echo '  <td align="left"><small class="credit"><code class="text-dark">'.$kontak.'</code></small></td>';
+                    echo '  <td align="left"><small class="credit"><code class="text-dark">'.$sumber.'</code></small></td>';
                     echo '  <td align="left"><small class="credit"><code class="text-dark">'.$datetime.'</code></small></td>';
                     echo '  <td align="center"><small class="credit">'.$LabelProses.'</small></td>';
                     echo '</tr>';
                     $number++;
                 }
                 echo '</tr>';
+                //Simpan LOG
+                $kontak_tidak_valid=$JumlahLooping-$JumlahKodeValid;
+                $EntryLog="INSERT INTO mitra_log (
+                    id_mitra,
+                    tanggal_upload,
+                    jam_upload,
+                    datetime_upload,
+                    jumlah_kontak,
+                    kontak_valid,
+                    kontak_tidak_valid
+                ) VALUES (
+                    '$SessionIdAkses',
+                    '$tanggal_upload',
+                    '$jam_upload',
+                    '$datetime_upload',
+                    '$JumlahLooping',
+                    '$JumlahKodeValid',
+                    '$kontak_tidak_valid'
+                )";
+                $InputLog=mysqli_query($Conn, $EntryLog);
+                if($InputLog){
+                    echo '<small class="credit"><code class="text-dark">Data Selesai Diproses</code></small>';
+                }
             }
         }
     }

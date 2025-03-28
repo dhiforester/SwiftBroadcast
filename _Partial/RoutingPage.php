@@ -24,6 +24,9 @@
         if($Page=="Kontak"){
             include "_Page/Kontak/Kontak.php";
         }
+        if($Page=="KontakMitra"){
+            include "_Page/KontakMitra/Kontak.php";
+        }
         if($Page=="DistribusiKontak"){
             include "_Page/DistribusiKontak/DistribusiKontak.php";
         }

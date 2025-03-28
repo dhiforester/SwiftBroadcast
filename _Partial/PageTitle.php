@@ -105,6 +105,15 @@
             echo '  </ol>';
             echo '</nav>';
         }
+        if($_GET['Page']=="KontakMitra"){
+            echo '<h1><a href=""><i class="bi bi-telephone"></i> Kontak</a></h1>';
+            echo '<nav>';
+            echo '  <ol class="breadcrumb">';
+            echo '      <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>';
+            echo '      <li class="breadcrumb-item active">Kontak</li>';
+            echo '  </ol>';
+            echo '</nav>';
+        }
         if($_GET['Page']=="DistribusiKontak"){
             echo '<h1><a href=""><i class="bi bi-box-arrow-in-down-right"></i> Distribusi Kontak</a></h1>';
             echo '<nav>';

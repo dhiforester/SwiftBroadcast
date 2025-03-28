@@ -11,7 +11,7 @@
     $bd_persen=($belum_dihubungi/$JumlahTotal)*100;
     $bd_persen=round($bd_persen);
     $data = [
-        'labels' => ['Dari Mitra ('.$sh_persen.'%)', 'Null ('.$bd_persen.'%)'],
+        'labels' => ['Dari Mitra ('.$sh_persen.'%)', 'Manual ('.$bd_persen.'%)'],
         'series' => [$sudah_dihubungi, $belum_dihubungi]
     ];
     echo json_encode($data);

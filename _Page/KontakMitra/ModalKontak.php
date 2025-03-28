@@ -100,24 +100,6 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col col-md-4">
-                            <label for="sumber">Sumber/Mitra</label>
-                        </div>
-                        <div class="col-md-8">
-                            <select name="id_mitra" id="id_mitra" class="form-control">
-                                <option value="">Pilih</option>
-                                <?php
-                                    $query_mitra = mysqli_query($Conn, "SELECT id_mitra, nama FROM mitra ORDER BY nama ASC");
-                                    while ($data_mitra = mysqli_fetch_array($query_mitra)) {
-                                        $id_mitra= $data_mitra['id_mitra'];
-                                        $nama= $data_mitra['nama'];
-                                        echo '<option value="'.$id_mitra.'">'.$nama.'</option>';
-                                    }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col col-md-4">
                             <label for="sudah_dihubungi">Status Dihubungi</label>
                         </div>
                         <div class="col-md-8">
@@ -249,7 +231,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-3 mb-3">
-                            <a href="_Page/Kontak/template_kontak.xlsx" target="_blank" class="btn btn-md btn-outline-success btn-block">
+                            <a href="_Page/KontakMitra/template_kontak.xlsx" target="_blank" class="btn btn-md btn-outline-success btn-block">
                                 <i class="bi bi-download"></i> Download Template
                             </a>
                         </div>
@@ -277,7 +259,6 @@
                                         <td><b>No</b></td>
                                         <td><b>Nama</b></td>
                                         <td><b>Kontak</b></td>
-                                        <td><b>Tanggal/Waktu</b></td>
                                         <td><b>Proses</b></td>
                                     </tr>
                                 </thead>

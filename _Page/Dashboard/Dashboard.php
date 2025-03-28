@@ -5,7 +5,11 @@
         if($SessionAkses=="Supervisi"){
             include "_Page/Dashboard/DashboardSupervisi.php";
         }else{
-            include "_Page/Dashboard/DashboardAnggota.php";
+            if($SessionAkses=="Mitra"){
+                include "_Page/Dashboard/DashboardMitra.php";
+            }else{
+                include "_Page/Dashboard/DashboardAnggota.php";
+            }
         }
     }
 ?>

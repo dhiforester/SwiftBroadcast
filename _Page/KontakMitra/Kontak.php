@@ -4,7 +4,9 @@
             <?php
                 echo '<div class="alert alert-info alert-dismissible fade show" role="alert">';
                 echo '  Berikut ini adalah halaman pengelolaan data kontak.';
-                echo '  Anda bisa menambahkan data kontak baru baik secara manual atapun import dari excel, merubah informasi kontak, melihat detail informasi kontak, dan melihat riwayat penggunaan kontak.<br>';
+                echo '  Anda bisa menambahkan data kontak baru dengan cara melakukan import menggunakan tabel excel.';
+                echo '  Anda juga bisa merubah informasi kontak, melihat detail informasi kontak, dan melihat riwayat penggunaan kontak secara parsial.';
+                echo '  Untuk mempermudah proses upload data kontak, silahkan download terlebih dulu template excel yang sudah kami sediakan.<br>';
                 echo '  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
                 echo '</div>';
             ?>
@@ -12,35 +14,18 @@
     </div>
     
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header text-center">
-                    <b class="card-title">Kontak Sudah Dihubungi</b>
+                    <b class="card-title">Riwayat Upload Kontak</b>
                 </div>
-                <div class="card-body" id="RekapKontakBelumDihubungi">
+                <div class="card-body" id="RekapAktivitasUploadKontak">
                     
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header text-center">
-                    <b class="card-title">Kontak Terdistribusi</b>
-                </div>
-                <div class="card-body" id="RekapDistribusiKontak">
-                    
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header text-center">
-                    <b class="card-title">Sumber Kontak</b>
-                </div>
-                <div class="card-body" id="RekapSumberKontak">
-                    
-                </div>
-            </div>
+        <div class="col-md-4" id="RekapitulasiKontak">
+            
         </div>
     </div>
     <div class="row">

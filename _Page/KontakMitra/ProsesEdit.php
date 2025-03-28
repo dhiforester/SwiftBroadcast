@@ -30,13 +30,6 @@
                     }else{
                         $email=$_POST['email'];
                     }
-                    if(empty($_POST['id_mitra'])){
-                        $id_mitra="";
-                        $sumber="";
-                    }else{
-                        $id_mitra=$_POST['id_mitra'];
-                        $sumber=GetDetailData($Conn,'mitra','id_mitra',$id_mitra,'nama');
-                    }
                     if(empty($_POST['sudah_dihubungi'])){
                         $sudah_dihubungi="0";
                     }else{
@@ -47,7 +40,6 @@
                     $nama=validateAndSanitizeInput($nama);
                     $kontak=validateAndSanitizeInput($kontak);
                     $email=validateAndSanitizeInput($email);
-                    $sumber=validateAndSanitizeInput($sumber);
                     $sudah_dihubungi=validateAndSanitizeInput($sudah_dihubungi);
                     //Buka data lama
                     $kontak_lama=GetDetailData($Conn,'kontak','id_kontak',$id_kontak,'kontak');
@@ -66,11 +58,9 @@
                             echo '<small class="text-danger">Kontak maksimal 20 karakter numerik</small>';
                         }else{
                             $Update = mysqli_query($Conn,"UPDATE kontak SET 
-                                id_mitra='$id_mitra',
                                 nama='$nama',
                                 email='$email',
                                 kontak='$kontak',
-                                sumber='$sumber',
                                 sudah_dihubungi='$sudah_dihubungi'
                             WHERE id_kontak='$id_kontak'") or die(mysqli_error($Conn)); 
                             if($Update){

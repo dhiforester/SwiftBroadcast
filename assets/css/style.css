@@ -855,8 +855,8 @@ h6 {
   flex-grow: 0;
 }
 .dashboard .blue-card .card-icon {
-  color: #929292;
-  background: #dbdbdb;
+  color: #6f38ee;
+  background: #e5d7ee;
 }
 
 .dashboard .sales-card .card-icon {
@@ -1305,4 +1305,25 @@ h6 {
   float: right !important;
   margin-right:1px !important;
   padding-right:1px !important;
+}
+/* Container progress bar */
+.progress_2 {
+  position: relative;
+  height: 20px; /* Tinggi progress bar */
+  width: 100%; /* Lebar progress bar, sesuaikan dengan container */
+  background-color: #e9ecef; /* Warna latar belakang progress bar */
+  border-radius: 5px; /* Sudut melengkung pada container progress bar */
+  overflow: hidden; /* Memastikan progress bar tidak melebihi kontainer */
+}
+
+/* Progress bar itself */
+.progress_2-bar {
+  position: absolute;
+  height: 100%; /* Mengisi tinggi kontainer */
+  background-color: #f8d617; /* Warna progress bar */
+  color: #fff; /* Warna teks di dalam progress bar */
+  text-align: center; /* Menyelaraskan teks ke tengah */
+  line-height: 20px; /* Menyelaraskan teks secara vertikal */
+  transition: width 0.6s ease; /* Transisi untuk perubahan lebar progress bar */
+  border-radius: 5px; /* Sudut melengkung pada progress bar */
 }

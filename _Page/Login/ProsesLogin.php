@@ -38,8 +38,13 @@
                 $stmt = $Conn->prepare("SELECT * FROM supervisi WHERE email = ? AND password = ?");
                 $stmt->bind_param("ss", $email, $password);
             } else {
-                $stmt = $Conn->prepare("SELECT * FROM anggota WHERE email = ? AND password = ?");
-                $stmt->bind_param("ss", $email, $password);
+                if ($mode_akses == "Mitra") {
+                    $stmt = $Conn->prepare("SELECT * FROM mitra WHERE email = ? AND password = ?");
+                    $stmt->bind_param("ss", $email, $password);
+                } else {
+                    $stmt = $Conn->prepare("SELECT * FROM anggota WHERE email = ? AND password = ?");
+                    $stmt->bind_param("ss", $email, $password);
+                }
             }
         }
         if ($stmt === false) {
@@ -56,6 +61,8 @@
                 $id_akses = $DataAkses["id_supervisi"];
             } elseif ($mode_akses == "Anggota") {
                 $id_akses = $DataAkses["id_anggota"];
+            } elseif ($mode_akses == "Mitra") {
+                $id_akses = $DataAkses["id_mitra"];
             } else {
                 $id_akses = null; // Jika tidak ada kecocokan, Anda bisa mengatur default value
             }

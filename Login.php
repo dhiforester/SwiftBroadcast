@@ -65,6 +65,7 @@
                                                                 <option value="Admin">Admin</option>
                                                                 <option value="Supervisi">Supervisi</option>
                                                                 <option value="Anggota">CS</option>
+                                                                <option value="Mitra">Mitra</option>
                                                             </select>
                                                             <div class="invalid-feedback">Please enter your username.</div>
                                                         </div>

@@ -15,7 +15,15 @@
         if($SessionAkses=="Supervisi"){
             include "_Partial/MenuSupervisi.php";
         }else{
-            include "_Partial/MenuAnggota.php";
+            if($SessionAkses=="CS"){
+                include "_Partial/MenuAnggota.php";
+            }else{
+                if($SessionAkses=="Mitra"){
+                    include "_Partial/MenuMitra.php";
+                }else{
+                    include "_Partial/MenuAnggota.php";
+                }
+            }
         }
     }
 ?>

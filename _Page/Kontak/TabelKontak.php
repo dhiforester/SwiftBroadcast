@@ -115,7 +115,7 @@
                     <td align="center"><b>No</b></td>
                     <td align="left"><b>Nama</b></td>
                     <td align="left"><b>Kontak</b></td>
-                    <td align="left"><b>Sumber</b></td>
+                    <td align="left"><b>Mitra</b></td>
                     <td align="center"><b>Dihubungi</b></td>
                     <td align="center"><b>CS</b></td>
                     <td align="center"><b>Opsi</b></td>

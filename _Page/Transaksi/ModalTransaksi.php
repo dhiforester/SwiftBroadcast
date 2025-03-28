@@ -76,36 +76,25 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="ModalPilihJenisTransaksi" tabindex="-1">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade" id="ModalTambah" tabindex="-1">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-dark"><i class="bi bi-search"></i> Pilih Jenis Transaksi</h5>
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-light"><i class="bi bi-plus"></i> Tambah Transaksi</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="javascript:void(0);" id="FormFilterJenisTransaksi">
-                    <input type="hidden" name="page" id="PutPageJenisTransaksi" value="1">
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <div class="input-group">
-                                <input type="text" name="keyword" class="form-control" placeholder="Kata Kunci">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="bi bi-search"></i> Cari
-                                </button>
-                            </div>
-                            <small>Pilih salah satu jenis transaksi berikut ini</small>
-                        </div>
-                    </div>
-                </form>
-                <div class="row mb-3">
-                    <div class="col-md-12" id="MenampilkanTabelJenisTransaksi">
-                        
+                <div class="row">
+                    <div class="col-md-12">
+                        Untuk menambah transaksi secara manual oleh admin, anda akan diarahkan ke halaman form khusus transaksi untuk melengkapi informasi order.
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-dark btn-rounded" data-bs-dismiss="modal">
+                <a href="index.php?Page=Transaksi&Sub=TambahTransaksi" class="btn btn-md btn-rounded btn-success">
+                    Lanjutkan <i class="bi bi-chevron-right"></i>
+                </a>
+                <button type="button" class="btn btn-outline-dark btn-rounded" data-bs-dismiss="modal">
                     <i class="bi bi-x-circle"></i> Tutup
                 </button>
             </div>

@@ -27,6 +27,9 @@
         if($Page=="Kontak"){
             echo '<script type="text/javascript" src="_Page/Kontak/Kontak.js"></script>';
         }
+        if($Page=="KontakMitra"){
+            echo '<script type="text/javascript" src="_Page/KontakMitra/Kontak.js"></script>';
+        }
         if($Page=="DistribusiKontak"){
             echo '<script type="text/javascript" src="_Page/DistribusiKontak/DistribusiKontak.js"></script>';
         }

@@ -71,7 +71,11 @@
                     if($SessionKategoriAkses=="Anggota"){
                         $UrlFotoProfile='assets/img/Anggota/'.$SessionGambar.'';
                     }else{
-                        $UrlFotoProfile='assets/img/User/'.$SessionGambar.'';
+                        if($SessionKategoriAkses=="Mitra"){
+                            $UrlFotoProfile='assets/img/Mitra/'.$SessionGambar.'';
+                        }else{
+                            $UrlFotoProfile='assets/img/User/'.$SessionGambar.'';
+                        }
                     }
                 }
             ?>

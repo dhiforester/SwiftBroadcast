@@ -4,145 +4,277 @@
             <div class="col-md-12">
                 <?php
                     echo '<div class="alert alert-info alert-dismissible fade show" role="alert">';
-                    echo '  Berikut ini adalah halaman untuk menambah transaksi.';
-                    echo '  Jenis transaksi diisi sesuai referensi jenis transaksi yang sudah ada.';
-                    echo '  Pastikan kembali bahwa proses posting jurnal sudah sesuai.';
+                    echo '  Berikut ini adalah halaman form tambah data transaksi.';
+                    echo '  Silahkan masukan informasi pelanggan, produk dan pengiriman secara lengkap dan jelas sesuai informasi order.';
+                    echo '  Pastikan kembali bahwa nilai dan harga pada item produk sudah sesuai.';
                     echo '  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
                     echo '</div>';
                 ?>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-md-10 mt-3">
-                                <b class="card-title">Form Tambah Data Transaksi</b>
+            <div class="col-lg-6">
+                <form action="javascript:void(0);" id="ProsesTambahTransaksi">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-md-9 mb-3">
+                                    <b class="card-title">Form Transaksi/Order</b>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <a href="index.php?Page=Transaksi" class="btn btn-dark btn-rounded btn-block">
+                                        <i class="bi bi-chevron-left"></i> Kembali
+                                    </a>
+                                </div>
                             </div>
-                            <div class="col-md-2 mt-3">
-                                <a href="index.php?Page=Transaksi" class="btn btn-md btn-dark btn-rounded btn-block">
-                                    <i class="bi bi-chevron-left"></i> Kembali
-                                </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-12 mb-3">
+                                    <b>Informasi Pelanggan</b>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4 mb-3">
+                                    <label for="nama">Nama Customer</label>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <div class="input-group">
+                                        <input type="text" name="nama" id="nama" class="form-control">
+                                        <button type="button" class="btn btn-info">
+                                            <i class="bi bi-person-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4 mb-3">
+                                    <label for="kontak">No.Kontak</label>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <div class="input-group">
+                                        <input type="text" name="kontak" id="kontak" class="form-control" placeholder="62">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4 mb-3">
+                                    <label for="alamat">Alamat</label>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <div class="input-group">
+                                        <input type="text" name="alamat" id="alamat" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4 mb-3">
+                                    <label for="provinsi">Provinsi</label>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <div class="input-group">
+                                        <input type="text" name="provinsi" id="provinsi" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4 mb-3">
+                                    <label for="kabupaten">Kabupaten</label>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <div class="input-group">
+                                        <input type="text" name="kabupaten" id="kabupaten" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4 mb-3">
+                                    <label for="kecamatan">Kecamatan</label>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <div class="input-group">
+                                        <input type="text" name="kecamatan" id="kecamatan" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4 mb-3">
+                                    <label for="desa">Kabupaten</label>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <div class="input-group">
+                                        <input type="text" name="desa" id="desa" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4 mb-3">
+                                    <label for="kode_pos">Kode POS</label>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <div class="input-group">
+                                        <input type="text" name="kode_pos" id="kode_pos" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-12 mb-3">
+                                    <b>Informasi Produk/Barang</b>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4 mb-3">
+                                    <label for="nama_produk">Nama Produk/Barang</label>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <div class="input-group">
+                                        <input type="text" name="nama_produk" id="nama_produk" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4 mb-3">
+                                    <label for="berat">Berat (Kg)</label>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <div class="input-group">
+                                        <input type="number" name="berat" id="berat" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4 mb-3">
+                                    <label for="harga_non_cod">Harga Non COD</label>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <div class="input-group">
+                                        <input type="number" name="harga_non_cod" id="harga_non_cod" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4 mb-3">
+                                    <label for="harga_cod">Harga COD</label>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <div class="input-group">
+                                        <input type="number" name="harga_cod" id="harga_cod" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4 mb-3">
+                                    <label for="qty">Quantity</label>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <div class="input-group">
+                                        <input type="number" name="qty" id="qty" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4 mb-3">
+                                    <label for="keterangan">Instruksi Pengiriman</label>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <div class="input-group">
+                                        <input type="text" name="keterangan" id="keterangan" class="form-control">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <b class="card-title">Produk</b>
+                    </div>
                     <div class="card-body">
-                        <div class="row border-1 border-bottom mb-3">
-                            <div class="col-md-12 mb-3">
-                                <b>Informasi Transaksi</b>
-                            </div>
-                            <div class="col-md-12 mb-3">
-                                <div class="row mb-3">
-                                    <div class="col col-md-3">
-                                        <label for="id_transaksi_jenis">Jenis Transaksi</label>
-                                    </div>
-                                    <div class="col col-md-9">
-                                        <select name="id_transaksi_jenis" id="id_transaksi_jenis" class="form-control" data-bs-toggle="modal" data-bs-target="#ModalPilihJenisTransaksi">
-                                            <option value="">Pilih</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col col-md-3">
-                                        <label for="kategori">Kategori Transaksi</label>
-                                    </div>
-                                    <div class="col col-md-9">
-                                        <input type="text" readonly name="kategori" id="kategori" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col col-md-3">
-                                        <label for="tanggal">Tanggal & Jam</label>
-                                    </div>
-                                    <div class="col col-md-5">
-                                        <input type="date" name="tanggal" id="tanggal" class="form-control" value="<?php echo date('Y-m-d'); ?>">
-                                    </div>
-                                    <div class="col col-md-4">
-                                        <input type="time" name="jam" id="jam" class="form-control" value="<?php echo date('H:i:s'); ?>">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col col-md-3">
-                                        <label for="JumlahTotal">Jumlah (Rp)</label>
-                                    </div>
-                                    <div class="col col-md-9">
-                                        <input type="text" name="JumlahTotal" id="JumlahTotal" class="form-control nominal_angka">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col col-md-3">
-                                        <label for="JumlahPembayaran">Pembayaran (Rp)</label>
-                                    </div>
-                                    <div class="col col-md-9">
-                                        <input type="text" name="JumlahPembayaran" id="JumlahPembayaran" class="form-control nominal_angka">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col col-md-3">
-                                        <label for="status">Status Transaksi</label>
-                                    </div>
-                                    <div class="col col-md-9">
-                                        <select name="status" id="status" class="form-control">
-                                            <option value="">Pilih</option>
-                                            <option value="Lunas">Lunas</option>
-                                            <option value="Utang">Utang</option>
-                                            <option value="Piutang">Piutang</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">Nama CS</div>
+                            <div class="col-md-8"><small class="credit text-grayish"><?php echo "$SessionNama"; ?></small></div>
                         </div>
-                        <div class="row border-1 border-bottom mb-3">
-                            <div class="col-md-12 mb-3">
-                                <b>Uraian/Rincian Transaksi</b>
-                            </div>
-                            <div class="col-md-12 mb-3">
-                                <div class="row mb-3">
-                                    <div class="col col-md-3">
-                                        <button type="button" class="btn btn-md btn-outline-grayish" id="TambahUraian">
-                                            <i class="bi bi-plus"></i> Tambah Uraian
-                                        </button>
-                                    </div>
-                                    <div class="col col-md-9">
-
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-12 table table-responsive">
-                                        <table class="table table-bordered table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <td align="center"><b>Uraian/Keterangan</b></td>
-                                                    <td align="center"><b>Harga</b></td>
-                                                    <td align="center"><b>QTY</b></td>
-                                                    <td align="center"><b>Satuan</b></td>
-                                                    <td align="center"><b>Jumlah</b></td>
-                                                    <td align="center"><b>Opsi</b></td>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="UraianTransaksi">
-                                                <tr>
-                                                    <td align="right" colspan="4">
-                                                        <b>SUBTOTAL</b>
-                                                    </td>
-                                                    <td align="right" id="JumlahTotal2">0</td>
-                                                    <td></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <small class="credit">
-                                            <b>Keterangan :</b> Apabila anda keluar/memuat ulang halaman maka uraian yang sudah anda buat di tabel atas akan hilang.
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">Email</div>
+                            <div class="col-md-8"><small class="credit text-grayish"><?php echo "$SessionEmailAkses"; ?></small></div>
                         </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">Kontak</div>
+                            <div class="col-md-8"><small class="credit text-grayish"><?php echo "$SessionKontakAkses"; ?></small></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <b class="card-title">Customer Service</b>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4">Nama CS</div>
+                            <div class="col-md-8"><small class="credit text-grayish"><?php echo "$SessionNama"; ?></small></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">Email</div>
+                            <div class="col-md-8"><small class="credit text-grayish"><?php echo "$SessionEmailAkses"; ?></small></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">Kontak</div>
+                            <div class="col-md-8"><small class="credit text-grayish"><?php echo "$SessionKontakAkses"; ?></small></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <b class="card-title">Supervisi</b>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4">Nama CS</div>
+                            <div class="col-md-8"><small class="credit text-grayish"><?php echo "$SessionNama"; ?></small></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">Email</div>
+                            <div class="col-md-8"><small class="credit text-grayish"><?php echo "$SessionEmailAkses"; ?></small></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">Kontak</div>
+                            <div class="col-md-8"><small class="credit text-grayish"><?php echo "$SessionKontakAkses"; ?></small></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <b class="card-title">Mitra</b>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4">Nama CS</div>
+                            <div class="col-md-8"><small class="credit text-grayish"><?php echo "$SessionNama"; ?></small></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">Email</div>
+                            <div class="col-md-8"><small class="credit text-grayish"><?php echo "$SessionEmailAkses"; ?></small></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">Kontak</div>
+                            <div class="col-md-8"><small class="credit text-grayish"><?php echo "$SessionKontakAkses"; ?></small></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <b class="card-title">Simpan Transaksi</b>
+                    </div>
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-md-12 mb-3">
-                                <div class="alert alert-info text-center" role="alert">
-                                    Pastikan bahwa data transaksi sudah terisi dengan benar!
-                                </div>
+                                Pastikan data yang anda input sudah sesuai.
                             </div>
                         </div>
                         <div class="row">
@@ -153,8 +285,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="row">
-                            <div class="col-md-3 mt-3">
-                                <button type="submit" class="btn btn-md btn-block btn-rounded btn-primary">
+                            <div class="col-md-12 mt-3">
+                                <button type="submit" class="btn btn-md btn-rounded btn-primary">
                                     <i class="bi bi-save"></i> Simpan Transaksi
                                 </button>
                             </div>

@@ -24,7 +24,6 @@
             $id_kontak=validateAndSanitizeInput($id_kontak);
             //Buka Informasi
             $datetime_import=GetDetailData($Conn,'kontak','id_kontak',$id_kontak,'datetime_import');
-            $id_mitra=GetDetailData($Conn,'kontak','id_kontak',$id_kontak,'id_mitra');
             $id_anggota=GetDetailData($Conn,'kontak','id_kontak',$id_kontak,'id_anggota');
             $email=GetDetailData($Conn,'kontak','id_kontak',$id_kontak,'email');
             $nama=GetDetailData($Conn,'kontak','id_kontak',$id_kontak,'nama');
@@ -47,28 +46,6 @@
         </div>
         <div class="col-md-8">
             <input type="text" name="kontak" id="kontak_edit" class="form-control" placeholder="62" value="<?php echo $kontak; ?>">
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col col-md-4">
-            <label for="sumber_edit">Sumber/Mitra</label>
-        </div>
-        <div class="col-md-8">
-            <select name="id_mitra" id="id_mitra" class="form-control">
-                <option value="">Pilih</option>
-                <?php
-                    $query_mitra = mysqli_query($Conn, "SELECT id_mitra, nama FROM mitra ORDER BY nama ASC");
-                    while ($data_mitra = mysqli_fetch_array($query_mitra)) {
-                        $id_mitra_list= $data_mitra['id_mitra'];
-                        $nama_list= $data_mitra['nama'];
-                        if($id_mitra_list==$id_mitra){
-                            echo '<option selected value="'.$id_mitra_list.'">'.$nama_list.'</option>';
-                        }else{
-                            echo '<option value="'.$id_mitra_list.'">'.$nama_list.'</option>';
-                        }
-                    }
-                ?>
-            </select>
         </div>
     </div>
     <div class="row mb-3">
